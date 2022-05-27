@@ -1,0 +1,422 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fontspec}
+
+% for code listing.
+\usepackage{listings}
+\usepackage{xcolor}
+
+% url typesetting
+\usepackage{hyperref}
+
+% for equations
+\usepackage{amsmath}
+
+% general typesetting
+\setmainfont[Ligatures=TeX]{TeX Gyre Schola}
+\setmonofont{IBM Plex Mono}
+
+\usepackage{unicode-math}
+\usepackage{amsthm}
+\usepackage{tabularx}
+
+% include images
+\usepackage{graphicx}
+
+\setmathfont{TeX Gyre Schola Math}
+
+\definecolor{darkgreen}{RGB}{11,107,21}
+
+\lstdefinestyle{custom-cpp}{
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    frame=L,
+    language=C++,
+    xleftmargin=\parindent,
+    keywordstyle=\bfseries\color{darkgreen},
+    commentstyle=\itshape\color{purple},
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange}
+}
+
+\lstdefinestyle{custom-java}{
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    frame=L,
+    language=Java,
+    xleftmargin=\parindent,
+    keywordstyle=\bfseries\color{darkgreen},
+    commentstyle=\itshape\color{purple},
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange}
+}
+
+
+
+\begin{document}
+
+\section*{Mathematical Induction}
+
+\begin{itemize}
+    \item \emph{Deductive reasonin} ties the whole of mathematics. For example, take this problem from highschool: solve for \(y\) where
+          \(y = x^2 - 8\) and \(x = 10\). We are using the information given by the equation and x to \emph{deduce} the value y. 
+    \item Deductive reasoning in mathematics is given in the form of \emph{proofs}.
+    \item Unproven hypothesis that is known to hold = \emph{conjecture}.
+\end{itemize}
+
+An example of deductive reasoning:
+
+\begin{enumerate}
+    \item It will either rain or swow tomorrow.
+          It is too warm for a snow.
+          Therefore, it will rain tomorrow.
+\end{enumerate}
+
+The argument universe is important.
+
+Think of argument as an environment where an arguer assumes the truth value of premises and argues for a given conclusion. That means the ``truth'' of the statements in the universe
+is not considered and what matters most the \emph{validity} for the logic flow.
+
+We talk of premise in the context of arguments. Otherwise it is simple statements and compound statements. The truthiness of of compound of statement depends on 
+the truthiness of its component statements and the logical connectives between them.
+
+Example analyze the logical form of the following statement:
+
+Either Bill is at work and Jane isn't, or Jane is at work and Bill isn't.
+
+\[
+    (P \land \lnot Q) \lor (Q \land \lnot P)
+\]
+
+General form of dedcutive reasoning:
+
+\begin{enumerate}
+    \item Logically connected statement or premise. It is more interesting when the connective is OR or IMPLIES.
+    \item A premise assumed to be true or false.
+    \item A conclusion.
+\end{enumerate}
+
+\begin{proof}
+    Here is my proof:
+    \[
+        a^2 + b^2 = c^2
+    \]
+\end{proof}
+
+\subsection*{Truth tables}
+We talk of premise in the context of arguments. Otherwise it is simple statements and compound statements. The truthiness of of compound of statement depends on 
+the truthiness of its component statements and the logical connectives between them. \footnote{This is very important---context}
+
+\begin{tabular}{ c c c c c c}
+    \(P\) & \(Q\) & \(\lnot P\) & \(\lnot Q\) & \(P \lor Q\) & \(P \land Q\) \\
+    \hline 
+    T     & F     & F           & T           & T            & F             \\
+    T     & T     & F           & F           & T            & T             \\
+    F     & T     & T           & F           & T            & F             \\
+    F     & F     & T           & T           & F            & F             \\
+    \hline  
+\end{tabular}
+
+OR can be both inclusive (P or Q, or both) or exclusive (P or Q, not both). keep in mind. In mathematics, we all ways
+mean inclusive OR.
+
+\lstset{style=custom-java}
+
+\section*{Java notes}
+
+\subsection*{Type theory interlude}
+
+\subsubsection*{Subtyping}
+
+In programming language theory a \emph{subtype} referes to a a type that is related to another type, also called the 
+\emph{supertype}, by some notion of \emph{substiutability}, meaning that program elements typically functions (or subroutine)
+written to operate on the supertype can also operate on the subtype. If \(S\) is the subtype of \(T\), the subtyping relation
+is often written as \(S <: T\), to mean that any term of type \(S\) can safely be used in places that expect type \(T\) to be
+present. For example in Java, every type except for primitive types is the subtype of \lstinline{Object} class. Or stated
+mathematically:
+\[
+    E <: O  
+\]
+Where E is every other class and O is the \lstinline{Object} class. 
+
+\subsubsection*{Covariance, contravariance, and invariance}
+\emph{Variance} refers to how the subtyping of more complex types is related to subtyping between the component types.
+Complex types include: generics, functions, and collections types like arrays, maps, and linked lists. For example, 
+should \lstinline{List<Cat>} be the subtype of \lstinline{List<Animal>} give that type \lstinline{Cat} is the subtype of type \lstinline{Animal}? Does
+\[L[C] <: L[A]\] hold given that \[C <: A\] for a given programming language like Java? Since Java supports generics, which
+allow the programmer to extend the type system with new type constructors (parametric polymorphism), which raises the question
+should \lstinline{ArrayList<File>} be the subtype of \lstinline{ArrayList<Object>} (\emph{covariant})? Java uses 
+\emph{use-site}  annotation to describe the varaince of the generic type constructors. \emph{declaration-site} annotation is
+used by C\#, Kotlin, and Scala. 
+
+Within a type systm of a programming language, a type rule or a type constructor is:
+
+\begin{itemize}
+    \item \emph{covariant} if it preserves the ordering of types (\(\leq\)), which orders types from more specific to more
+          generic: If \(C <: A\), then \(I[C] <: I[A]\).
+    \item \emph{contravariant} if it reverses this ordering if \(C <: A\), then \(I[A] <: I[C]\).
+    \item \emph{bivariant} if both of this apply. (i.e., if \(C <: B\), them \(I[C] \equiv I[A]\)).
+    \item \emph{variant} if covariant, contravariant, or bivariant.
+    \item \emph{invariant} or \emph{nonvariant} if not variant.
+\end{itemize}
+
+\subsection*{The language}
+
+Non wildcard (\lstinline{G<?>}) parameterized types are invariant in Java, i.e, there is no subtyping relationship between
+\lstinline{List<Cat>} and \lstinline{List<Animal>}. \footnote{more on this.}
+
+Java does not suffer from template bloat like C++ does. Why? That is because C++ creates a new type for every template 
+instantiation. For example:
+
+\lstset{style=custom-cpp}
+\begin{lstlisting}
+    template <typename T>
+    void print(T arg) {
+        // ... implementation
+    }
+
+    print<int>(30);
+    print<const char*>("Hello");
+\end{lstlisting}
+
+Essentially generates two copies of the function print with the type paramenters resolved: \lstinline{printInt} and
+\lstinline{printConstPtrToChar} which generates bloat during compilation. Java unlike C++ generates just one type for each
+generic type with the generic type thrown away, which call \emph{type erasure}.
+
+\lstset{style=custom-java}
+\begin{lstlisting}
+    public <T> void print(T arg) {
+        // ... implementation
+    }
+\end{lstlisting}
+
+\begin{flushleft}
+    becomes just one function with type parameters replaced with \lstinline{Object} type.    
+\end{flushleft}
+
+\begin{lstlisting}
+    public void print(Object arg) {
+        // ...implementation
+    }
+\end{lstlisting}
+
+Java is getting better and better with each release. Keep the the features listed below in mind when working with a new
+java project.
+\begin{itemize}
+    \item better \lstinline{switch} blocks.
+    \item a smarter \lstinline{instanceof} operator.
+    \item Records with autogenerated getters, setters, and to string.
+    \item Text blocks.
+    \item sealed classes.
+\end{itemize}
+
+\subsection*{Java security primitives}
+Java uses serveral classes and interfaces from core java packages to thrid party libraries to help with the control of \emph{access to information}.
+\emph{Principal} interface represents an abstract notion of a principal, which can be used to represent any entity, 
+such as an individual, a corporation or a login id. Essentially, anything with a name (that name could be a user id from user database) 
+is principal. 
+A \emph{Credential} is a piece of document that details the qualification, competence, or authority issued to an individual by a third party
+with a relevan defacto authority assumed competence to do so. Examples of credentials include academic degrees, passwords,
+security clearance, badges, passwords, user names, keys, and certifications. \emph{Subject} \lstinline{class} represents 
+a \emph{grouping} of related information for a single entity, such as a person. Such information includes subjects indentities
+as well as security related attributes (passwords, cryptographic keys, for example.) Subjects may potentially have multiple
+indentities. Each identity is represented as a \lstinline{Principal} within the \lstinline{Subject}. For example a \lstinline{Subject},
+that happens to be a person, Alice, might have two principals: on which binds ``Alice Bar'', the name of her driver license,
+to the \lstinline{Subject}, and another which binds ``999-99-999'', the number of her student identification card, to the 
+\lstinline{Subject}. Both \lstinline{Principal}s refer to the same \lstinline{Subject} even though each has different name. 
+
+
+\lstset{style=custom-java}
+\begin{lstlisting}
+    package java.security;
+
+    public interface Principal {
+        // ...
+        String getName();
+        boolean implies(Subject subject);
+        // ...
+
+    }
+\end{lstlisting}
+
+\subsection*{Important Java foundations}
+The Eclipse foundation and Apache foundation contribute a great deal to the advancement of the Java ecosystem.
+Besides that Red Hat and Oracle are commercial companies engaged in the development and support of Java Platform.
+
+\subsection*{Jakarta EE}
+Jakarata EE also previously known as Java Enterprise Edition is a set of \emph{Specification} that greatly extend the 
+Java platform for enterprise use, especially with concert to web applications and distributed applications.
+
+\subsection*{OSGi}
+
+OSGi specification describes a modular system and service platform for Java that implements a complete and 
+dynamic component model, something that does not exist in standalone Java/VM platforms. In enterprise settings typical 
+Java application is not packaged as jar and launched from its main function using the system installed java executable,
+rather than that the enterprise system provides a java platform that \emph{always} runs in which application bundles are
+loaded and unloaded with out restarting the application server. OSGi architecture has the following components:
+
+\begin{enumerate}
+    \item \emph{Bundles} are normal JAR components with extra manifest headers.
+    \item \emph{Services} layer connects bundles in a dynamic way by offering a publish-find-bind model for POJIs and POJOs.
+    \item \emph{Service registry} the application programming interface for management services.
+    \item \emph{Life-cycle} the application programming interface for lifecycle management (insatll, start, stop, update, uninstall)
+          for bundles.
+    \item \emph{Modules} layer defines encapsulation and declaration of dependencies (how bundles can import and export code).
+    \item \emph{Security} layer that handles the security aspects by limiting bundle functionality to pre-defined capabilities.
+\end{enumerate}
+
+\emph{Apache Felix} is implementation of the OSGi specification.
+
+\begin{figure}[hbt]
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{graphics/osgi-architecture.png}
+        \caption{OSGi architecture.}
+    \end{center}
+\end{figure}
+
+\subsection*{Glassfish}
+
+
+\subsection*{JAX-RS}
+Jakarta RESTful Web Services also called \emph{JAX-RS} is a set of interfaces and annotations included in Java EE platform 
+that help in writing REST applications. Since JAX-RS is just a collection of interfaces and annotations it just defines an API. 
+RestEasy from Red Hat, Jersey from Eclipse foundation and Apache CXF are the libraries implementing the API.
+
+\emph{Root resource classes} are POJOs that are annotated with \lstinline{@Path} have atleast one method annoted with
+\lstinline{@Path} or a resource method designator annotation such as \lstinline{@GET}, \lstinline{@POST}, \lstinline{@PUT},
+or \lstinline{@DELETE}. Resource method are methods of resource class that are annotated with resource method designator.
+
+Java world is full of specifications and implementations (some of which are reference). Language features such as interfaces, 
+annotations and abstract base classes aid writing specifications in java code.
+
+\begin{itemize}
+    \item Glassfish?
+    \item Jetty?
+    \item Servlet?
+          
+\end{itemize}
+
+\subsection*{The project}
+\begin{itemize}
+    \item Everything happens in \lstinline{Context.init}.
+    \item in context.init hikariCP and liquibase db-migration tool.
+    \item All database object access go through \lstinline{DataManager} class. Like login (User). like a homebrew ORM (object relational mapper).
+    \item \lstinline{ObjectMapper} from Jackson library maps java objects <=> JSON.
+    \item hikari manages connection pool database instances for example for PostGresql.
+    \item usind direnv program to manage firebase admin environment variables. firebase admin requires a service
+          key file which we pass to it using an environment variable containing the path.
+    \item liquibase loads schema file from \lstinline{changelog-master.xml}.
+\end{itemize}
+
+
+\section*{Algorithms}
+
+\subsection*{What are algorithms?}
+
+An \emph{algorithm} is is any well defined computational procedure that takes some value, as \emph{input} and produces some value, 
+or a set of values, as \emph{output} in finite amount of time. Essentially algorithms are a set of procedures that transform input to outputs.
+\footnote{As defined in the Algorithms book.}
+
+Alternatively an algorithm can be described as a tool for solving a well defined \emph{computational problems}. The statement of problem describes
+the desired input/output mapping for problem instances. The algorithm describes computational procedures for achieving the desired input/output relationship
+for all problem instances.
+
+Example problem: sort a sequence of numbers in ascending order. Below is how we formally define \emph{the sorting problem}.
+
+Input: A sequence of \(n\) numbers \(\langle a_1, a_2, \ldots, a_n\rangle\). 
+
+Output: A permutation (reordering) \(\langle a'_1, a'_2, \ldots, a'_n\rangle\) of the input such that \(a'_1 \leq a'_2 \leq \ldots \leq a'_n\).
+
+\begin{itemize}
+    \item a correct alogrithm should produce the correct output for each input but also halt. (finite running time.)
+          \begin{enumerate}
+              \item Prove that the algorithm actually \emph{works}.
+              \item Analyze the running cost of the algorithm especially interms of order of growth.
+          \end{enumerate}
+    \item The example of comparision between a slow implementation of merge sort with cost of \(c_1n\lg{n}\) and insertion sort with running cost of
+          \(c_2n^2\) is illuminating.
+\end{itemize}
+
+\section*{C++ notes.}
+
+\subsection*{Smart pointers.}
+
+I should avoid using raw pointers whenever possible. Why?
+\lstset{style=custom-cpp}
+
+\begin{itemize}
+    \item Declaration does not indicate whether they point to a single object or an array.
+    \item Declaration does not tell us whether a pointer should destroy the object it is pointing at i.e. it is owning.
+    \item There is almost no way to know whether to call \lstinline{delete} or \lstinline{delete []} from its declaration.
+    \item Pass the pointer to a dedicated destroy function or just \lstinline{delete} it? Hard to know.
+\end{itemize}
+
+\lstset{style=custom-cpp}
+% \lstinputlisting[firstline=36,lastline=55]{C:/Users/25192/dev/modern-cpp/smart-pointers.cpp}
+
+\begin{itemize}
+    \item \lstinline{std::unique_ptr<T>} encapsulates the single ownership concept.
+    \item \lstinline{unique_ptr} is the only creator and destroyer of an object.
+    \item \lstinline{std::shared_ptr<T>} described using people in a hall last one turns off the lights analogy. how?
+\end{itemize}
+
+\begin{lstlisting}
+#include <memory>
+#include <iostream>
+
+using std::cout, std::endl;
+using UniquePtrInt = std::unique_ptr<int>;
+
+void takesUptr(UniquePtrInt uptr) {
+    cout << "*uptr = " << *uptr << endl;
+}
+
+int main() {
+    
+    UniquePtrInt p { new int {30}};
+
+    takesUptr(std::move(p));
+
+    // p is nullptr
+    // p has been "moved" from, so it is invalid.
+    if(p)
+        cout << "*p = " << *p << endl;
+
+    return 0;
+}
+\end{lstlisting}
+
+\subsection*{RAII}
+
+\begin{itemize}
+    \item Always prefer list initializations.
+    \item Member declaration site initializations run before constructors.
+    \item Constructor overloading is good.
+    \item Constructors can \lstinline{throw} exceptions and infact it is prefered to do so to ``preserve'' the class invariant.
+\end{itemize}
+
+\subsection*{Profiling and (micro)benchmarking}
+
+The real problem is that programmers have spent to much time worrying about efficiency in the wrong places and at the wrong times.\footnote{Mathieu Ropert---youtube video}
+
+\begin{enumerate}
+    \item Sampling profiling.
+    \item Instrumentation profiling.
+\end{enumerate}
+
+And for benchmarking
+
+\begin{enumerate}
+    \item Micro benchmarking
+    \item Macro benchmarking
+\end{enumerate}
+
+imporatant \url{https://youtu.be/fHNmRkzxHWs?t=2122}
+
+\section*{Algorithms}
+
+\[
+    a = a + b
+\]
+
+\end{document}
