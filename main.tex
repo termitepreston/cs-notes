@@ -122,6 +122,87 @@ mean inclusive OR.
 
 \lstset{style=custom-java}
 
+\section*{Writing (English)}
+My most common problem while writing is my paragraphs become a sequence of sentences without much linking (coherence)
+between them. They call this the \emph{the shopping list} paragraph.
+
+\begin{itemize}
+    \item Reflexive repetition.
+    \item 
+\end{itemize}
+
+\section*{Deutsch}
+\subsection*{Phonology}
+Phonolgy is grammar of the sounds of a language, but phonetics is the study of human produced sound for its own sake.
+
+\begin{figure}[hbt]
+    \begin{center}
+        \includegraphics[width=0.5\textwidth]{graphics/ipa.png}
+        \caption{IPA symbols.}
+    \end{center}
+\end{figure}
+
+\subsection*{Grammar}
+All german nouns are ``gendered''. the genders are: neutral, male and female. but the actual gender of the noun has
+nothing to do with its gender especially for inanimate objects. german nouns are to be memorized with the 
+article reflecting the gender. These are \emph{der}-nouns (masculine), \emph{die}-nouns (feminine) and \emph{das}-nouns 
+(neuter). Examples: \emph{das Cafe}, \emph{der Flughafen}, \emph{der Banhof}, \emph{das Restaurant}, \emph{das Hotel},
+\emph{die Botschaft}, \emph{die Bank}, \emph{die Zigarren}, \emph{der Wein}, \emph{das Bier}, \emph{der Kaffe},
+\emph{der Tee}, \emph{die Milch}, \emph{das Wasser}, \ldots It makes no sense for wine to a masculine gender.
+
+\subsubsection*{Personal pronouns}
+
+\begin{table}[hbt!]
+    \centering
+    \begin{tabular}{ c c c c c }
+        Nominative & Accusative & Genitive & Dative \\
+        \hline
+        ich        & mich       & meiner   & mir    \\
+        du         & dich       & deiner   & dir    \\
+        er         & ihn        & seiner   & ihm    \\
+        sie        & sie        & ihrer    & ihr    \\
+        es         & es         & seiner   & ihm    \\
+        wir        & uns        & unser    & uns    \\
+        ihr        & euch       & euer     & euch   \\
+        Sie        & Sie        & Ihrer    & Ihnen  \\
+        sie        & sie        & ihrer    & ihenen \\
+        \hline
+    \end{tabular}
+    \caption{Personal pronouns in Deutsch.}
+\end{table}
+
+
+Unlike Enlgish verbs which are only conjugated for number, and tense, German verb conjugation depends on number, gender, 
+person, mood, and tense. German verbs can be regular or irregular in their conjugation. Finite verbs must agree with
+the subject, unlike non-finite verbs.
+
+The ``principal parts'' of a verb are:
+\begin{enumerate}
+    \item Infinitive form.
+    \item Past tense form.
+    \item Past participle form.
+\end{enumerate}
+
+Based on conjugation I need to worry about:
+
+\begin{enumerate}
+    \item Weak verbs.
+    \item Strong verbs.
+    \item Irregular verbs.
+          \begin{enumerate}
+              \item Irregular weak verbs.
+              \item Irregular strong verbs.
+              \item The modal auxiliary verbs and \emph{wissen}.
+              \item The verbs \emph{haben}, \emph{sein}, and \emph{werden}.
+          \end{enumerate}
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\textwidth]{graphics/german-verb-conjugation.png}
+    \caption{German verb conjugations}
+\end{figure}
+
 \section*{Java notes}
 
 \subsection*{Type theory interlude}
@@ -159,6 +240,12 @@ Within a type systm of a programming language, a type rule or a type constructor
     \item \emph{variant} if covariant, contravariant, or bivariant.
     \item \emph{invariant} or \emph{nonvariant} if not variant.
 \end{itemize}
+
+\subsection*{Package management}
+Classes live inside packages. a package declared using \lstinline{package ...;} classes living in the same 
+package can see each other. package \emph{classpath} and directory structure of the source must match each other. 
+always think of two contexts the classpath context and source context. why should java source directory tree and
+package name classpath match? answer here. relationship with maven group id and artifact ids?
 
 \subsection*{The language}
 
@@ -199,6 +286,24 @@ generic type with the generic type thrown away, which call \emph{type erasure}.
         // ...implementation
     }
 \end{lstlisting}
+
+\subsection*{Dependency injection}
+
+Dependency injection is a design pattern applied to classes with members so that the member are initialized outside the class
+itself. For example, the following code:
+
+\lstinputlisting[style=custom-java]{code/code-without-di.java.src}
+
+\lstinline{RealBillingService} class depends on two internally constructed objects inside the \lstinline{chargeOrder}
+function. If we wanted to test \lstinline{chargeOrder}, we will have to charge from a real Paypal account which is
+impractical. To solve this we could use:
+
+\begin{itemize}
+    \item Using a Factory class but we would have to reset this global factory after each test.
+    \item Passing every dependency to constructor manually. using method we can remove \lstinline{setUp} and \lstinline{tearDown}
+          methods from our test code. further more expose the dependency in the api signature.
+    \item Using a dependency injection framework.
+\end{itemize}
 
 Java is getting better and better with each release. Keep the the features listed below in mind when working with a new
 java project.
@@ -244,8 +349,11 @@ The Eclipse foundation and Apache foundation contribute a great deal to the adva
 Besides that Red Hat and Oracle are commercial companies engaged in the development and support of Java Platform.
 
 \subsection*{Jakarta EE}
-Jakarata EE also previously known as Java Enterprise Edition is a set of \emph{Specification} that greatly extend the 
-Java platform for enterprise use, especially with concert to web applications and distributed applications.
+Jakarata EE also previously known as Java Enterprise Edition is a set of \emph{Specifications} that extend Java SE
+with specifications for enterprise features such as distributed computing and web services. Jakarata EE defined by 
+its specification, and its specification defines APIs and their interaction. Jakarta EE was maintained by Oracle
+corporation who later transffered its development to Eclipse foundation was renamed from Java EE to Jakarta EE because
+Oracle owns the trademark for \emph{Java}. 
 
 \subsection*{OSGi}
 
@@ -307,6 +415,10 @@ annotations and abstract base classes aid writing specifications in java code.
           key file which we pass to it using an environment variable containing the path.
     \item liquibase loads schema file from \lstinline{changelog-master.xml}.
 \end{itemize}
+
+The final two pieces of the server are the object linking system that links devices with user, users with groups, geolocations,
+with devices etc\ldots and the data manager system that sits between \lstinline{Storage} and the processing in jax-rs 
+resource methods.
 
 
 \section*{Algorithms}
