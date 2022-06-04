@@ -23,6 +23,12 @@
 % include images
 \usepackage{graphicx}
 
+% include images in landscape mode. 
+\usepackage{wrapfig}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{epstopdf}
+
 \setmathfont{TeX Gyre Schola Math}
 
 \definecolor{darkgreen}{RGB}{11,107,21}
@@ -416,10 +422,83 @@ annotations and abstract base classes aid writing specifications in java code.
     \item liquibase loads schema file from \lstinline{changelog-master.xml}.
 \end{itemize}
 
-The final two pieces of the server are the object linking system that links devices with user, users with groups, geolocations,
-with devices etc\ldots and the data manager system that sits between \lstinline{Storage} and the processing in jax-rs 
-resource methods.
 
+%% a paragraph that describes the working of traccar server.
+
+Traccar server is a layered monolithic application. each layer handles a specific functionality.
+Traccar server is composed of two servlets. one servlet handles api calls. the other servlet handles
+websocket communication. the api servlet implements the jax-rs specification. jax-rs specification provides Traccar server with
+annotations to decorate our classes with. Traccar server uses jersey as the implentation library of jax-rs. 
+rest api resources are bound to handler classes with annotations. each handler class is annotated with rest api 
+\emph{path}. annotated functions in the resource class handle specific http methods. 
+this layer of the application is commonly called the controller. jersey takes jackson json 
+serialization/deserializtion library in its filter chain to convert incoming json payloads to the application specifc 
+\emph{model} classes. before each request is received by the resource handler classes it passes through a class that implents 
+jax-rs' \lstinline{ContainerRequestFilter} class. \lstinline{ContainerRequestFilter} interface contains \lstinline{filter}
+function. The \lstinline{filter} function allows us to perform custom logic on all requests before they are matched with
+resource handler class. the class that implements \lstinline{ContainerRequestFilter} checks if each request conains a JSON Web 
+Tokens payload. If JSON Web Token is indeed in http body, decode the JSON Web Token using firebase admin authentication 
+functions. determine if decoded JSON Web Token contains data of an authenticated user. the class that implements 
+\lstinline{ContainerRequestFilter} class injects a \emph{security context} object to the resource handler classes. 
+the injected object contains authentication information necessary for the logic inside the resource handlers. 
+one such information is the users unique identifier id decoded from the JSON Web Token payload. \lstinline{Storage}  class is 
+also injected into the resource handlers. \lstinline{Storage} interfaces with the underlying database to write and
+read objects to and from a real database. connection to the database server is managed by \emph{HikariCP} connection pool 
+management library. we manage our connections with a HikariCP because we want to be resource efficient. we do this by not 
+recreating db connection on every request but by storing and reusing connection from older completed requests. doing 
+connection pooling we reduce object creation/destruction overhead. Traccar server uses \emph{Liquibase} database migration 
+tool to automatially initialize tables at startup. Liquibase reads table creation data from \emph{schema} files written in XML.
+Each schema file is written in the from of \emph{changesets}. changesets help us in the process of restoration of older 
+database state. Traccar server uses a custom Object relational mapping system. Each Traccar model class we want to persist
+is annotated with \lstinline{@StorageName}. \lstinline{@StorageName} helps the ORM to generate column names and table names 
+using Java's support for runtime reflection. By using annotations and reflection we can load a database table row to an 
+instance of a class that is annotated with \lstinline{@StorageName} or insert a model class that is annotated with 
+\lstinline{StorageName("")} to a database row. database update is possible usin this system. each of the API handlers use 
+instance of  \lstinline{Storage} class to read and write persistance data. \emph{data managers} sit between \lstinline{Storage}
+class and our resource handlers to facilitate the implementation of complex logic. this complex logic is usually a code that
+shares functoinaliy with the websocket code. Objects in Traccar server are linked with each other post creation. special 
+tables in database store this linkage information. \lstinline{Permission} model class helps when linking objects. together.\footnote{how?}
+\lstinline{PermissionService} class is injected to resource handler classes. \lstinline{PermisssionService} class handles
+various authorization related functions. Authorization related function include: check if user is admin, check if users can
+access reports, check if a give user can edit or update database objects, check if a given user owns certain model classes.
+
+
+\begin{sidewaysfigure}[hbt!]
+    \centering
+    \includegraphics[width=\textheight]{graphics/uml-chart.png}
+    \caption{Traccar UML chart}
+\end{sidewaysfigure}
+
+\section*{SQL notes}
+
+Why did relational databases win out? Database is a \emph{set} of related information\footnote{Learning SQL}. databases can
+be indexed with some \emph{key}. a phonebook has letters on its margins. we can use the letters on the margins to find
+phonenumbers more quickly. we call this process \emph{indexing}. relational mode of data storage is the most commonly used.
+heirarchial mode of data storage was more popular in the past. in heirarchial data storage scheme data is stored in a tree 
+fasion. as an example of heirarchial data storage we can consider the case of bank account storage.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{graphics/heirarchial-database.png}
+    \caption{Heirarchial mode of data storage.}
+\end{figure}
+
+network based database store records with pointers to other records. user can extract data by traversing the linking pointers.
+relational database is the most common now. primary keys uniquely identify a row in relational table. primary keys need not be
+generated by the database management software. several columns can generate a unique key for each row. \lstinline{fname} and
+\lstinline{lname} in the database attached can be used as a primary key. primary keys made out of multiple columns are called
+\emph{compound key}. \emph{natural keys} are keys generated from the data itself. \emph{surrogate keys} are keys appended 
+by the database designer. database designers generate surrogate primary keys because no natural key can be used to identify
+a row. primary keys should never change once they are assigned. relational database tables include column whose value point
+to entries in other tables. column value that point to another table are called foreign keys. foreign keys perform the same
+function as pointers in network based database systems.the process of ``lensing'' into foreign key of table is called a
+\emph{join operation}.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{graphics/network-database.png}
+    \caption{Heirarchial mode of data storage.}
+\end{figure}
 
 \section*{Algorithms}
 
