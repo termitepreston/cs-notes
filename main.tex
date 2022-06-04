@@ -14,7 +14,7 @@
 
 % general typesetting
 \setmainfont[Ligatures=TeX]{TeX Gyre Schola}
-\setmonofont{IBM Plex Mono}
+\setmonofont{Iosevka SS15 Medium}
 
 \usepackage{unicode-math}
 \usepackage{amsthm}
@@ -50,6 +50,30 @@
     breaklines=true,
     frame=L,
     language=Java,
+    xleftmargin=\parindent,
+    keywordstyle=\bfseries\color{darkgreen},
+    commentstyle=\itshape\color{purple},
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange}
+}
+
+\lstdefinestyle{custom-sql}{
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    frame=L,
+    language=SQL,
+    xleftmargin=\parindent,
+    keywordstyle=\bfseries\color{darkgreen},
+    commentstyle=\itshape\color{purple},
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange}
+}
+
+\lstdefinestyle{custom-bash}{
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    frame=L,
+    language=bash,
     xleftmargin=\parindent,
     keywordstyle=\bfseries\color{darkgreen},
     commentstyle=\itshape\color{purple},
@@ -471,6 +495,8 @@ access reports, check if a give user can edit or update database objects, check 
 
 \section*{SQL notes}
 
+\lstset{style=custom-sql}
+
 Why did relational databases win out? Database is a \emph{set} of related information\footnote{Learning SQL}. databases can
 be indexed with some \emph{key}. a phonebook has letters on its margins. we can use the letters on the margins to find
 phonenumbers more quickly. we call this process \emph{indexing}. relational mode of data storage is the most commonly used.
@@ -492,13 +518,132 @@ by the database designer. database designers generate surrogate primary keys bec
 a row. primary keys should never change once they are assigned. relational database tables include column whose value point
 to entries in other tables. column value that point to another table are called foreign keys. foreign keys perform the same
 function as pointers in network based database systems.the process of ``lensing'' into foreign key of table is called a
-\emph{join operation}.
+\emph{join operation}. storing redundant is not considered a problem in relational database system. we must be sure that 
+redundant data stored has a reason to be redundant. cannonical data should be stored in one table. foreign keys (pointers)
+can be redundant. duplication of cannonical data causes for unreliable data. a single column should just include one data.
+this process of making cannonical data non redundant, storing single values in each column is called \emph{normalization}.
+sql is a computer language that was specifically designed to manipulate relational databases. Edgar F. Todd described relational
+database systems. he proposed a language called DSL/Alpha for relational database systems. IBM created a language called 
+SQUARE by refining edgar f. codds language. SQUARE was refined to SEQUEL. SEQUEL was shorted to SQL. The result of sql query 
+is a table. a new table can be created in sql by simple storing the result set of an sql query. a query can use both permanent
+tables and result set of another query. sql is not an acronym for anything. sql is short for sequel. sql is a non procedural
+computer language. we do not tell the sql engine how to retreive our data. we describe the data we want to the sql engine and
+the sql engine retreives the data the most efficient way possible. sql statement types can be divided into three types. 
+\emph{schema statements} are used to define data structures stored in the database. \emph{data statements} are used to manipulate 
+data structures created by schema statements. transaction statements are used to begin, end, and rollback transactions. 
+an example of a the schema statement \lstinline{create table}:
+
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[width=0.5\textwidth]{graphics/network-database.png}
     \caption{Heirarchial mode of data storage.}
 \end{figure}
+
+\begin{lstlisting}
+create table corporation (corpid smallint, name varchar(30), constraint pk_corporation primary key (corp_id));
+\end{lstlisting}
+
+the above statement creates a table with two columns. the tables names is corporation. \lstinline{corp_id} is identified as the 
+primary key. primary keys are a type of constraint. \lstinline{insert} is a data statement that is used to insert a row of data into
+a table. notice the single quote in insert.
+
+\begin{lstlisting}
+insert into corporation (corpid, name) values (30, 'SpaceX');
+\end{lstlisting}
+
+another data statement is \lstinline{select} statement. \lstinline{select} statement is used to extract data from the database.
+
+\begin{lstlisting}
+select (name, corpid) from corporation where corpid=30;
+\end{lstlisting}
+
+all database elements created with sql schema statements are stored in a set of special tables called \emph{the data dictionary}.
+this set of metadata tables can be queried just like other sql tables.
+
+\subsection*{PostgreSQL}
+\lstset{style=custom-bash}
+PostgreSQL is one of the most popular sql based database management systems. PostgreSQL is fully opensource. PostgreSQL is developed 
+by Berkley University. installing posgresql on  an Arch Linux machine creates a \lstinline{postgres} user. \lstinline{postgres} user 
+is the only one allowed to interact with the database system. to change to user postgres use the following command. command work 
+if \lstinline{sudo} is installed. postgresql follows the client server model. postgresql server manages the datastore. postgresql 
+server receives sql commands from clients and executes it against the datastore. servers and clients need not be on the same host.
+server client can communicate using TCP/IP.
+
+
+\begin{lstlisting}
+sudo -iu postgres
+\end{lstlisting}
+
+
+then while we are user \lstinline{postgres}, initialize the database cluster with locale and encoding we desire.
+
+\begin{lstlisting}
+# initializes a database cluster.
+# run as `postgres` unix user.
+initdb  --locale=en_US.utf8 --encoding=UTF8 \
+        -D /var/lib/postgres/data --data-checksums
+\end{lstlisting}
+
+PostgreSQL installs the following programs on our system: \lstinline{psql} is a postgresql client that helps us interact 
+with PostgreSQL from a terminal session. \lstinline{createuser} is used to create PostgreSQL roles. \lstinline{postgres} is
+used to manage the server process. \lstinline{initdb} is used to initialize database clusters. \lstinline{createdb} to create new
+database (not a cluster). \lstinline{dropdb} to remove a database. commands from postgresql package must be run from the 
+\lstinline{postgres} unix user. postgresql has the concept of roles. roles in postgresql are a username password combo that is
+used to connect with a specific database. unix users and postgresql roles are a completely different concepts. a database client
+from a remote machine can use a database installed locally by providing the correct roles. management of the database server is 
+perfromed by \emph{unix} user \lstinline{postgres}. postgresql comes with one default role \lstinline{postgres}. \lstinline{postgres}
+role is a super user role. super user roles can read and write to every database. super user roles can create and drop roles.
+linux user \lstinline{postgres} and postgresql superuser role having the same name make things a little confusing. postgresql roles can
+be create from the terminal using \lstinline{createuser} or from the interactive sql shell psql using sql statement:
+
+\lstset{style=custom-sql}
+\begin{lstlisting}
+create role dbname;
+\end{lstlisting}
+
+postgresql db roles can be removed using:
+
+\begin{lstlisting}
+drop role dbname;
+\end{lstlisting}
+
+\lstset{style=custom-bash}
+
+Create a database for role \lstinline{dbname}.
+
+\begin{lstlisting}
+# create database named db for role dbname
+# remember unix user is postgres
+createdb db -O dbname
+\end{lstlisting}
+
+Then connect to the database using \lstinline{psql}
+
+\begin{lstlisting}
+psql db -U dbname
+\end{lstlisting}
+
+we will be presented with the following prompt.
+
+\begin{lstlisting}
+psql (14.3)
+Type "help" for help.
+
+db=> 
+\end{lstlisting}
+
+arrow instead of hash in \lstinline{db=>} indicates we are a non superuser role. contrast this with prompt for superuser role
+\lstinline{postgres}:
+
+\begin{lstlisting}
+psql (14.3)
+Type "help" for help.
+
+db=#
+\end{lstlisting}
+
+we can use \lstinline{psql} command \lstinline{\dt+} to list all available tables in a database.
 
 \section*{Algorithms}
 
