@@ -14,11 +14,16 @@
 
 % general typesetting
 \setmainfont[Ligatures=TeX]{TeX Gyre Schola}
+\setsansfont{Iosevka Aile}
 \setmonofont{Iosevka SS15 Medium}
 
 \usepackage{unicode-math}
 \usepackage{amsthm}
+
+% table typesetting
 \usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{booktabs} % professional looking tables.
 
 % include images
 \usepackage{graphicx}
@@ -28,6 +33,9 @@
 \usepackage{lscape}
 \usepackage{rotating}
 \usepackage{epstopdf}
+
+% for song lyrics.
+\usepackage{poetry}
 
 \setmathfont{TeX Gyre Schola Math}
 
@@ -153,17 +161,309 @@ mean inclusive OR.
 \lstset{style=custom-java}
 
 \section*{Writing (English)}
-My most common problem while writing is my paragraphs become a sequence of sentences without much linking (coherence)
-between them. They call this the \emph{the shopping list} paragraph.
+
+\subsection*{Grammar}
+The most important part of a sentence that I need to keep an eye out for is the verb phrase\footnote{The noun phrase modifier
+    \emph{that I need to keep an eye out on} is relative clause modifier, and the main verb phrase is \emph{is}}. Verb phrases are 
+the heartbeat of a sentence. Noun phrases draw power from verb phrases. Noun phrases derive meaning from verb phrases. Almost 
+everything else in a sentence is a modifier. One word may belong to many parts of speech. There is no function like relationship 
+between words and parts of speech\footnote{\emph{is} is acting like a link verb between the pronoun \emph{There} and \emph{no function
+        like relationship\ldots} which is a subject complement}. English follows the SVO (subject--verb--object) sentence pattern. 
+The placement of words in a sentence is a more reliable way to tell the function of that word in a sentence.\footnote{This sentence is a
+    litte more tricky to analyze, but form wise, it is similar to the sentence \emph{The palcement of cars in a garage is great}. Its form
+    is thus \(NP-LV-SC\), and \emph{of words in a sentence} is a prepositional phrase} For example, take a look at the following two 
+sentences:
+
 
 \begin{itemize}
-    \item Reflexive repetition.
-    \item 
+    \item \emph{Winter} is harsh.
+    \item Thomasia \emph{winters} in Tuscon.
 \end{itemize}
+
+The same word \emph{winter} represents two different parts of speech in each of the above sentences. In the first sentence\footnote{
+    \emph{In the first sentence} is a whole sentence modifier.}, it is used as noun phrase that functions as a subject. In the 
+second sentence, it is used as a verb. Verbs have the unique ability of ``travelling'' through time (present, past, and future) which we 
+call \emph{tense}. Verb is the only part of speech that can encode/decline tense in its form.
+
+\begin{itemize}
+    \item Todd \emph{arrives} in Tuscon.
+    \item She \emph{had} a drink.
+    \item She \emph{has} the baby.
+\end{itemize}
+
+In the above set of sentences, the verb phrases carry both the action and the actions period. Verb phrases are a combination of 
+auxiliaries and other verbs. The combination accomplishes showing time and mood that a single word is not able to. For example:
+
+\begin{itemize}
+    \item Kaput \emph{ate} before leaving the house.
+    \item Kaput \emph{should have eaten} before leaving the house.
+    \item By the time we get there, he \emph{will have been \textbf{blowing up}} at the referee for quite some time.
+\end{itemize}
+
+The single word verb phrase \emph{ate} conveys the simple past and \emph{to eat} in its conjugation. the multi-word verb phrase 
+\emph{should have eaten} conveys an additional mood \emph{should have} with its root action. \emph{blowing up} is \emph{verbal phrase}
+that is made up of two words but actually represents a new word with a different meaning. single verb phrases can form sentence.
+\emph{Stop!} is a single verb phrase sentence. some verbs are transitive:
+
+\begin{flushleft}
+    Pat sent \emph{Chris \emph{the message}}. \\
+    Julia \emph{smells} bad. \\
+    Lisa \emph{is smelling} to Pizza. \\
+    Mr. Becker \emph{is} a big man.
+\end{flushleft}
+
+verbs can be transitive or non transitive. transitive verbs can take objects. in the above sentence \emph{the message} is direct object 
+while \emph{Chris} is indirect object. \emph{linking verbs} tell more about their subjects. \emph{smells} in the second sentence is
+a linking verb telling us more about \emph{Lisa}. what comes after the linking verb is called the \emph{subject complemnt}.
+subject complements are of two kinds: they can be \emph{modifiers} or they can be other noun phrases. a rule of thumb to identify nouns
+is to check if the noun can take an article. articles are a type of determiners. determiners: \emph{the}, \emph{that}, \emph{some},
+\emph{some}, \emph{a}, \ldots
+
+\[
+    NP = (D + M_0 + N + M_1) + C + NP
+\]
+
+where \(NP\) is a noun phrase, \(D\) is a determiner, \(M_0\) is a modifier before the noun, \(M_1\) is a modifier after
+the noun, \(C\) is conjuction, and \(N\) is a noun. \emph{Some big, white, dependable \textbf{chickens} besides the red
+    wheelbarrow and a delicate glaze of \textbf{rainwater}}.
+
+\begin{flushleft}
+    \emph{The squeamish} are nervous. \\
+    \emph{The enourmous, fancy} \textbf{Taco} is thrown away. \\
+    \emph{The} \textbf{man} \emph{in yellow hat} kicked the lady \\
+    \emph{A disastrous} \textbf{event} \emph{that left many dead}\ldots
+\end{flushleft}
+
+traditionally, \emph{squeamish} is used as an adjective but its placement in the above sentence makes it work as noun representing the 
+subject. in the second sentence \emph{The} represents the determiner, \emph{enourmous, fance} is the modifier and \emph{Taco} is the 
+root subject.
+
+modifiers modify verb and noun phrases. verb phrase modifiers may appear before the verb or after the verb. single word modifiers end
+wih \emph{-ly} but not always. example of multi word modifier is \emph{prepositional pharases}. example below sentence 4.
+
+\begin{flushleft}
+    The gazelle runs \emph{fast}. \\
+    Sammy sings \emph{pretty}. \\
+    Sam sings \emph{good}. \\
+    Sam sings \emph{well}. \\
+    Elyssa fished \emph{under the full moon}. \\
+    Frita fished \emph{while her friend cooked.} \\
+    The incomparable June had \emph{wisely} hunted \emph{only on Thursdays}. \\
+    The suspects \emph{often} look suspicious.
+\end{flushleft}
+
+the noun phrase is the most modifyable part of a sentence. noun phrase modifiers can appear before or after the noun.
+
+\begin{flushleft}
+    This \emph{cold, super sweet, photogenic banana} \textbf{ice cream} \emph{on the table (last night's table desert)
+        forgotten after the party and sitting in the sun and which we really did mean to go back to} is \emph{ruined}.
+\end{flushleft}
+
+one of the modifiers that come after the noun, \emph{on the table} is a prepositional phrase. \emph{(last night's table desert)} is an 
+appositive. \emph{forgotten after the party} is a participal phrase made of verbs, \emph{sitting in the sun} is a participal phrase,
+made of verbs. \emph{which we really did mean to go back to} is a relative clause noun modifier, and \emph{ruined} that comes after the
+linking verb \emph{is} is a subject complement modifier.
+
+of the noun clauses we listed above two of them deserve attention: \emph{relative clauses} and \emph{complement} clauses. we modify noun
+phrases with relative clauses by adding another cluase talking about the same subject. for example the following clauses (independent) 
+all have the same subjects. relative clause are introduce by relativizers like \emph{who}, \emph{which}, \emph{that}, \emph{whom}, 
+\emph{whose}.
+
+\begin{flushleft}
+
+    \begin{itemize}
+        \item \emph{The owl} caught the squid.
+        \item The mouse fears \emph{the owl}.
+        \item \emph{The owl} hoots every night.
+    \end{itemize}
+    we can use one of the sentence above as a relative clause modifier to produce:
+    \begin{itemize}
+        \item The owl \emph{that the mouse fears} caught the squid.
+        \item The owl \emph{that hoots every night} caught the squid.
+        \item The mouse fears the owl \emph{that caught the squid}.
+        \item The mouse fears the owl \emph{that hoots every night}.
+        \item The owl \emph{that caught the squid} hoots every night.
+        \item The owl \emph{that the mouse fears} hoots every night.
+    \end{itemize}
+\end{flushleft}
+
+complement clauses are somewhat similar to relative clause modifiers. relative clauses added while complement clauses are
+complement clauses are necessary for full information. complement clauses are usually used with noun phrases like:
+\emph{The idea}, \emph{The thought}, \emph{The recommendation}, \ldots 
+new. example: 
+\begin{flushleft}
+    Complement: The recommendation \emph{(that) we go to the park}\ldots \\
+    Relative: The kids \emph{(that) went to the park}\ldots
+\end{flushleft}
+
+complement clauses can form noun phrases on their own. for example:
+
+\begin{flushleft}
+    Mable shouted \emph{(the message) that she was ready for the debate}.
+\end{flushleft}
+
+\emph{(the message) that she was ready for the debate} is used as a complete noun pharse acting as the object to \emph{shouted}.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[width=\textwidth]{graphics/typical-sentence-structure.png}
+    \caption{Typical sentence structure}
+\end{figure}
+
+modifiers that sentences as a whole are called sentence modifiers. sentence level modifiers usually appear at the beginning of a 
+sentence and are separated by a comma.
+
+\begin{enumerate}
+    \item \emph{Understandably}, Sam decided not to come.
+    \item \emph{On Thursday night}, Raymond bereated Madeline.
+    \item \emph{Motivated by fear}, the squirrel scampered.
+    \item \emph{Please}, wear you masks.
+    \item \emph{Astoundingly}, the ice cream brought about world peace.
+    \item \emph{Under duress}, we confessed to dismantling the planes.
+    \item \emph{Responding to the news}, the detective threw a fit.
+    \item \emph{When I was a child}, my father gave me licorice.
+\end{enumerate}
+
+sentence number 3 is an example of multi-word modifier. sentence number 6 is an example of sentence modifier that is prepositional
+phrase. sentence number 7 is an example of sentence modifier that is participal phrase. the place of modifiers matters a lot.
+
+\begin{itemize}
+    \item \emph{Really}, the old touscan shrieked loudly at the miserable goose.
+    \item The \emph{really} old touscan shrieked loudly at the miserable goose.
+    \item The old touscan \emph{really} shrieked loudly at the miserable goose.
+    \item The old touscan shrieked \emph{really} loudly at the miserable goose.
+    \item The old touscan shrieked loudly at the \emph{really} miserable goose.
+\end{itemize}
+
+sentence can be made out of single verbs \emph{Stop!}, single independent clause that contains noun phrase and verbe phrase 
+\emph{Each of the students leaving the classroom are pathetic loosert indefinately.} or from subordinated and independent clauses
+\emph{After I told him to cut it out, Schmitt began to make more scene.}. Subordinating clauses begin with words known as 
+subordinatiing conjunctions. \emph{After}, \emph{Because}, \emph{Although}, \emph{Despite} are example of subordinating conjunctions.
+
+\{After the miserable party ended\}, [Georgio boldly declared that he was the  checkers champion], [but Lydia,
+        incensed by the presumption, rejected his claim and proposed a board game coup\footnote{
+            \emph{rejected his claim and proposed a board game} is a single verbal phrase with two objects attached.}]
+\{because she saw her opportunity to prevail\footnote{subordinated clauses can come after the independent clause}\}. in the 
+above complex sentence, subordinated clauses are in \{\} and independent clauses are in [].
+
+
+\begin{figure}[hbt!]
+    \includegraphics[width=\textwidth]{graphics/sentence-modifier.png}
+    \caption{Sentence level and verb phrase modifiers}
+\end{figure}
+
+\begin{flushleft}
+    Comma usage recorded thus far:
+    \begin{enumerate}
+        \item After sentence level modifiers.
+        \item After subordinated clauses.
+        \item Between independent clauses conjugated with one of FANBOYS.
+    \end{enumerate}
+\end{flushleft}
 
 \section*{Deutsch}
 \subsection*{Phonology}
 Phonolgy is grammar of the sounds of a language, but phonetics is the study of human produced sound for its own sake.
+
+the text bellow contains the translation of Rammsteins hit ich will.
+
+\textsf{
+    \begin{poem}
+        ich will \\
+        ich will \\
+        ich will \\
+        ich will \\
+        ich will \\
+        ich will \\
+        ich will \\*
+    \end{poem}
+}
+\emph{ich} is the first singular personal pronoun in the nominative case. the nominative case marks the subject of a verb.
+the ohter cases of the first person singular personal noun are \emph{mich}, \emph{meiner}, \emph{mir} for accusative, genitive, and dative
+cases repectively. \emph{will} is the singular first person present conjugation of \emph{wollen}. \emph{ich will} translated to english
+means \emph{i want}.
+
+\begin{table}
+    \begin{center}
+        \textsf{
+            \begin{tabular}{l l r}
+                \toprule
+                Infinitive                     &     & \emph{wollen} \\
+                \midrule
+                \multirow{7}{*}{Present tense} & ich & will          \\
+                                               & du  & willst        \\
+                                               & es  & will          \\
+                                               & wir & wollen        \\
+                                               & ihr & wollt         \\
+                                               & Sie & wollen        \\
+                                               & sie & wollen        \\
+                \midrule
+                \multirow{7}{*}{Past tense}    & ich & wollte        \\
+                                               & du  & wolltest      \\
+                                               & es  & wollte        \\
+                                               & wir & wollten       \\
+                                               & ihr & wolltet       \\
+                                               & Sie & wollten       \\
+                                               & sie & wollten       \\
+                \midrule
+                \multirow{1}{*}{Participle}    &     & gewollt       \\
+                \bottomrule
+            \end{tabular}}
+        \caption{\emph{wollen} conjugations.}
+    \end{center}
+\end{table}
+
+
+\textsf{
+    \centering
+    \begin{poem}
+        Ich will dass ihr mir vertraut \\
+        (Ich will) Ich will dass ihr mir glaubt \\
+        (Ich will) Ich will eure Blicke spüren \\
+        (Ich will) jeden Herzschlag kontrollieren \\
+        (Ich will) eure Stimmen hören \\
+        (Ich will) Ich will die Ruhe stören \\
+        (Ich will) Ich will dass ihr mich gut seht \\
+        (Ich will) Ich will dass ihr mich versteht \\*
+    \end{poem}
+}
+
+\emph{dass} is a subordinating clause introducer similar to english's \emph{that}. \emph{eure} is the genitive of the second person 
+plural \emph{ihr} (you (all)). \emph{jeden}\footnote{except that jeden (rather than jedes) is usual in the genitive
+    singular masculine and neuter if the following noun has the ending -(e)s, e.g.
+    \emph{am Ende jed \textbf{en}} (less frequent: \emph{jed \textbf{es}}) \emph{Abschnitts.}} is a determiner that corresponds to
+english \emph{each}, \emph{every}. \emph{kontrollieren}
+
+\begin{table}
+    \centering
+    \textsf{\begin{tabular}{l l l r}
+            \toprule
+                       & Masculine      & Feminine & Neuter \\
+            \midrule
+            Nominative & jeder          & jede     & jedes  \\
+            Accusative & \textbf{jeden} & jede     & jedes  \\
+            Genitive   & \emph{jedes}   & jeder    & jedes  \\
+            Dative     & jedem          & jeder    & jedem  \\
+            \bottomrule
+        \end{tabular}}
+    \caption{Declension of \emph{jeder}}
+\end{table}
+
+\textsf{
+    \centering
+    \begin{poem}
+        I want that you (all) trust me \\
+        (Ich will) I want that you (all) believe me \\
+        (Ich will) I want your glancing look. \\
+        (Ich will) Each heartbeat controlling. \\*
+    \end{poem}
+}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{graphics/grammar-syntax.png}
+    \caption{Verb structure for the first verse}
+\end{figure}
 
 \begin{figure}[hbt]
     \begin{center}
@@ -184,20 +484,21 @@ article reflecting the gender. These are \emph{der}-nouns (masculine), \emph{die
 
 \begin{table}[hbt!]
     \centering
-    \begin{tabular}{ c c c c c }
-        Nominative & Accusative & Genitive & Dative \\
-        \hline
-        ich        & mich       & meiner   & mir    \\
-        du         & dich       & deiner   & dir    \\
-        er         & ihn        & seiner   & ihm    \\
-        sie        & sie        & ihrer    & ihr    \\
-        es         & es         & seiner   & ihm    \\
-        wir        & uns        & unser    & uns    \\
-        ihr        & euch       & euer     & euch   \\
-        Sie        & Sie        & Ihrer    & Ihnen  \\
-        sie        & sie        & ihrer    & ihenen \\
-        \hline
-    \end{tabular}
+    \textsf{\begin{tabular}{ l l l r }
+            \toprule
+            Nominative & Accusative & Genitive & Dative \\
+            \midrule
+            ich        & mich       & meiner   & mir    \\
+            du         & dich       & deiner   & dir    \\
+            er         & ihn        & seiner   & ihm    \\
+            sie        & sie        & ihrer    & ihr    \\
+            es         & es         & seiner   & ihm    \\
+            wir        & uns        & unser    & uns    \\
+            ihr        & euch       & euer     & euch   \\
+            Sie        & Sie        & Ihrer    & Ihnen  \\
+            sie        & sie        & ihrer    & ihenen \\
+            \bottomrule
+        \end{tabular}}
     \caption{Personal pronouns in Deutsch.}
 \end{table}
 
@@ -246,7 +547,7 @@ is often written as \(S <: T\), to mean that any term of type \(S\) can safely b
 present. For example in Java, every type except for primitive types is the subtype of \lstinline{Object} class. Or stated
 mathematically:
 \[
-    E <: O  
+E <: O  
 \]
 Where E is every other class and O is the \lstinline{Object} class. 
 
@@ -533,6 +834,9 @@ the sql engine retreives the data the most efficient way possible. sql statement
 data structures created by schema statements. transaction statements are used to begin, end, and rollback transactions. 
 an example of a the schema statement \lstinline{create table}:
 
+- temporal data types.
+- constraints, especially foreign ones.
+- table joins.
 
 \begin{figure}[hbt!]
     \centering

@@ -26,9 +26,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.3932941"
-     inkscape:cx="1849.9324"
-     inkscape:cy="2453.1791"
+     inkscape:zoom="0.8070694"
+     inkscape:cx="3279.148"
+     inkscape:cy="2864.6855"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
@@ -39,13 +39,33 @@
      id="defs2">
     <marker
        style="overflow:visible"
+       id="Dot"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Dot"
+       markerWidth="5.6666665"
+       markerHeight="5.6666665"
+       viewBox="0 0 5.6666667 5.6666667"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.5)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 5,0 C 5,2.76 2.76,5 0,5 -2.76,5 -5,2.76 -5,0 c 0,-2.76 2.3,-5 5,-5 2.76,0 5,2.24 5,5 z"
+         id="Dot1"
+         sodipodi:nodetypes="sssss" />
+    </marker>
+    <marker
+       style="overflow:visible"
        id="TriangleStart"
        refX="0"
        refY="0"
        orient="auto-start-reverse"
        inkscape:stockid="TriangleStart"
-       markerWidth="5.3244081"
-       markerHeight="6.155385"
+       markerWidth="4"
+       markerHeight="4.6242776"
        viewBox="0 0 5.3244081 6.1553851"
        inkscape:isstock="true"
        inkscape:collect="always"
@@ -81,6 +101,155 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <g
+       id="g4592"
+       inkscape:export-filename="typical-sentence-structure.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:#ababe9;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+         id="rect862"
+         width="44.221722"
+         height="10.942876"
+         x="750.41785"
+         y="712.10486" />
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-size:6.35px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+         x="752.50085"
+         y="719.88452"
+         id="text1543"><tspan
+           sodipodi:role="line"
+           id="tspan1541"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:6.35px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';stroke-width:0.625736"
+           x="752.50085"
+           y="719.88452">Noun Phrase</tspan></text>
+      <rect
+         style="fill:#e7a2e1;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+         id="rect1601"
+         width="44.221722"
+         height="10.942876"
+         x="838.67767"
+         y="711.50922" />
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-size:6.35px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+         x="840.76068"
+         y="719.28888"
+         id="text1605"><tspan
+           sodipodi:role="line"
+           id="tspan1603"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:6.35px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';stroke-width:0.625736"
+           x="840.76068"
+           y="719.28888">Noun Phrase</tspan></text>
+      <g
+         id="g3012">
+        <g
+           id="g1602"
+           transform="translate(2.4579983)">
+          <circle
+             style="fill:#ea81a5;fill-opacity:1;stroke:none;stroke-width:0.625998;stroke-linejoin:bevel;stop-color:#000000"
+             id="path1024"
+             cx="814.20062"
+             cy="665.90997"
+             r="14.434395" />
+          <text
+             xml:space="preserve"
+             style="font-style:italic;font-size:6.35px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+             x="814.10535"
+             y="664.24945"
+             id="text1599"><tspan
+               sodipodi:role="line"
+               id="tspan1597"
+               style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:6.35px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-align:center;text-anchor:middle;stroke-width:0.625736"
+               x="814.10535"
+               y="664.24945">Verb</tspan><tspan
+               sodipodi:role="line"
+               style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:6.35px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-align:center;text-anchor:middle;stroke-width:0.625736"
+               x="814.10535"
+               y="672.18695"
+               id="tspan918">Phrase</tspan></text>
+        </g>
+      </g>
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.626;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart);stop-color:#000000"
+         d="m 802.22422,665.90997 c -35.24133,0 -33.96789,43.51813 -33.96789,43.51813"
+         id="path1664"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.626;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart);stop-color:#000000"
+         d="m 831.09302,665.90997 c 35.24133,0 35.18669,43.14642 35.18669,43.14642"
+         id="path1782"
+         sodipodi:nodetypes="cc" />
+      <g
+         id="g3005"
+         transform="translate(1.8542385,-2.5535054)">
+        <circle
+           style="fill:#81eaa0;fill-opacity:1;stroke:none;stroke-width:0.625998;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+           id="path1906"
+           cx="814.80438"
+           cy="694.90308"
+           r="5.1294212" />
+        <text
+           xml:space="preserve"
+           style="font-weight:500;font-size:6.35px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#81eaa0;fill-opacity:1;stroke:none;stroke-width:0.625999;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+           x="814.80438"
+           y="697.23669"
+           id="text2950"><tspan
+             sodipodi:role="line"
+             id="tspan2948"
+             style="fill:#000000;stroke-width:0.626"
+             x="814.80438"
+             y="697.23669">M</tspan></text>
+      </g>
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.626;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000;font-variation-settings:normal;opacity:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-dashoffset:0;stop-opacity:1;marker-end:url(#Dot)"
+         d="m 816.65862,687.22014 v -6.87578"
+         id="path3014" />
+      <path
+         style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.626;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Dot);stop-color:#000000;stop-opacity:1"
+         d="m 811.5292,692.34957 c -22.73422,-1.35808 -20.48295,18.35814 -20.48295,18.35814"
+         id="path3016"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.626;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#Dot);stop-color:#000000;stop-opacity:1"
+         d="m 821.78804,692.34957 c 22.54057,-1.47588 22.69168,17.46926 22.69168,17.46926"
+         id="path3018"
+         sodipodi:nodetypes="cc" />
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-size:9.87778px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+         x="786.30066"
+         y="738.45813"
+         id="text3934"><tspan
+           sodipodi:role="line"
+           id="tspan3932"
+           style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Bold Italic';stroke-width:0.625736"
+           x="786.30066"
+           y="738.45813">S</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-size:9.87778px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+         x="811.12213"
+         y="738.45813"
+         id="text4040"><tspan
+           sodipodi:role="line"
+           id="tspan4038"
+           style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Bold Italic';stroke-width:0.625736"
+           x="811.12213"
+           y="738.45813">V</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-size:9.87778px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+         x="839.0719"
+         y="738.45813"
+         id="text4044"><tspan
+           sodipodi:role="line"
+           id="tspan4042"
+           style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:9.87778px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Bold Italic';stroke-width:0.625736"
+           x="839.0719"
+           y="738.45813">O</tspan></text>
+    </g>
     <text
        xml:space="preserve"
        style="font-weight:500;font-size:12.7px;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono Medium';fill:none;stroke:#319924;stroke-width:0.352777;stop-color:#000000"
@@ -1911,6 +2080,345 @@
          x="417.26013"
          y="650.33942"
          id="tspan2462">name: varchar(128) not nullable </tspan></text>
+    <g
+       id="g756">
+      <g
+         id="g6870"
+         inkscape:export-filename="grammar-syntax.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96">
+        <rect
+           style="fill:#9aa1dd;fill-opacity:1;stroke-width:0.716322;stop-color:#000000"
+           id="rect5014"
+           width="12.726656"
+           height="7.7233887"
+           x="808.37488"
+           y="480.77701" />
+        <rect
+           style="fill:#9aa1dd;fill-opacity:1;stroke-width:0.851824;stop-color:#000000"
+           id="rect3920"
+           width="17.996885"
+           height="7.7233887"
+           x="770.5943"
+           y="475.47369" />
+        <rect
+           style="fill:#d5aedd;fill-opacity:1;stroke-width:0.969762;stop-color:#000000"
+           id="rect1407"
+           width="85.649033"
+           height="13.092267"
+           x="795.1925"
+           y="494.93756" />
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 864.54196,505.46581 c 0,17.83196 14.30628,16.39033 14.30628,16.39033"
+           id="path6816"
+           sodipodi:nodetypes="cc" />
+        <text
+           xml:space="preserve"
+           style="font-weight:500;font-size:4.9389px;line-height:normal;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono Medium';text-decoration-color:#000000;fill:#000000;stroke-width:0.856001;stop-color:#000000"
+           x="801.1803"
+           y="503.28885"
+           id="text736"><tspan
+             sodipodi:role="line"
+             id="tspan734"
+             x="801.1803"
+             y="503.28885"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';stroke-width:0.856001">Ich will dass ihr mir vertraut</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.88056px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-decoration-color:#000000;fill:#d5aedd;fill-opacity:1;stroke-width:0.856001;stop-color:#000000"
+           x="772.23907"
+           y="480.35986"
+           id="text3751"><tspan
+             sodipodi:role="line"
+             id="tspan3749"
+             style="font-size:3.88056px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="772.23907"
+             y="480.35986">Subject</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.88056px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-decoration-color:#000000;fill:#d5aedd;fill-opacity:1;stroke-width:0.856001;stop-color:#000000"
+           x="810.41333"
+           y="486.04929"
+           id="text3755"><tspan
+             sodipodi:role="line"
+             id="tspan3753"
+             style="font-size:3.88056px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="810.41333"
+             y="486.04929">Verb</tspan></text>
+        <rect
+           style="fill:#9aa1dd;fill-opacity:1;stroke-width:1.20323;stop-color:#000000"
+           id="rect5016"
+           width="49.135799"
+           height="16.090448"
+           x="869.3623"
+           y="464.36469" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.52778px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-decoration-color:#000000;fill:#d5aedd;fill-opacity:1;stroke-width:0.856001;stop-color:#000000"
+           x="870.68634"
+           y="469.23532"
+           id="text3861"><tspan
+             sodipodi:role="line"
+             id="tspan3859"
+             style="font-size:3.52778px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="870.68634"
+             y="469.23532">Verb complement.</tspan><tspan
+             sodipodi:role="line"
+             style="font-size:3.52778px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="870.68634"
+             y="473.64505"
+             id="tspan6778">noun clause subordinated</tspan><tspan
+             sodipodi:role="line"
+             style="font-size:3.52778px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="870.68634"
+             y="478.05478"
+             id="tspan6780">with dass - <tspan
+   style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic'"
+   id="tspan6790">that</tspan>.</tspan></text>
+        <path
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.53834;stroke-linecap:butt;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+           d="m 869.36231,472.40992 c -20.17443,1.84328 -14.56335,24.66133 -14.56335,24.66133"
+           id="path6712"
+           sodipodi:nodetypes="cc" />
+        <path
+           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625736;stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+           d="m 822.37806,497.07125 h 51.46871"
+           id="path6744" />
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="M 811.28141,497.07125 H 818.195"
+           id="path6746" />
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 814.73822,488.50039 v 8.57086"
+           id="path6772" />
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 801.62252,497.07125 h 6.43949"
+           id="path6774" />
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 788.59117,479.33538 c 16.25108,0 16.25108,17.73587 16.25108,17.73587"
+           id="path6776" />
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625735;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 855.54235,505.46582 h 17.99922"
+           id="path6792" />
+        <rect
+           style="fill:#9aa1dd;fill-opacity:1;stroke-width:0.716322;stop-color:#000000"
+           id="rect6796"
+           width="12.726656"
+           height="7.7233887"
+           x="878.58575"
+           y="517.99445" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.88056px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-decoration-color:#000000;fill:#d5aedd;fill-opacity:1;stroke-width:0.856001;stop-color:#000000"
+           x="880.62421"
+           y="523.26672"
+           id="text6800"><tspan
+             sodipodi:role="line"
+             id="tspan6798"
+             style="font-size:3.88056px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="880.62421"
+             y="523.26672">Verb</tspan></text>
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625736;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 844.34274,505.77869 h 6.91359"
+           id="path6802" />
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 847.79955,514.34955 v -8.57086"
+           id="path6804" />
+        <rect
+           style="fill:#9aa1dd;fill-opacity:1;stroke-width:0.716322;stop-color:#000000"
+           id="rect6806"
+           width="14.809443"
+           height="7.7233887"
+           x="840.39484"
+           y="513.54755" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.88056px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-decoration-color:#000000;fill:#d5aedd;fill-opacity:1;stroke-width:0.856001;stop-color:#000000"
+           x="841.67218"
+           y="518.82758"
+           id="text6810"><tspan
+             sodipodi:role="line"
+             style="font-size:3.88056px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="841.67218"
+             y="518.82758"
+             id="tspan6812">Dative</tspan></text>
+        <path
+           style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 838.3648,505.77869 c 0,17.83196 -14.30628,16.39033 -14.30628,16.39033"
+           id="path6818"
+           sodipodi:nodetypes="cc" />
+        <path
+           style="font-variation-settings:normal;opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625733;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+           d="m 841.89829,505.7787 h -6.68262"
+           id="path6820" />
+        <rect
+           style="fill:#9aa1dd;fill-opacity:1;stroke-width:0.716321;stop-color:#000000"
+           id="rect6828"
+           width="23.525013"
+           height="7.7233887"
+           x="801.68408"
+           y="518.3291" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.88056px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';text-decoration-color:#000000;fill:#d5aedd;fill-opacity:1;stroke-width:0.856001;stop-color:#000000"
+           x="802.95355"
+           y="523.60913"
+           id="text6832"><tspan
+             sodipodi:role="line"
+             id="tspan6830"
+             style="font-size:3.88056px;fill:#060202;fill-opacity:1;stroke-width:0.856001"
+             x="802.95355"
+             y="523.60913">Nominative</tspan></text>
+      </g>
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-size:3.52777px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+       x="777.26068"
+       y="582.76678"
+       id="text1539"><tspan
+         sodipodi:role="line"
+         id="tspan1537"
+         style="stroke-width:0.625736;fill:#000000"
+         x="777.26068"
+         y="582.76678" /></text>
+    <path
+       style="font-variation-settings:normal;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000"
+       d="m 885.1175,632.14268 h 8.31464"
+       id="path1663" />
+    <rect
+       style="fill:#88e275;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+       id="rect799"
+       width="29.913229"
+       height="10.942876"
+       x="847.48169"
+       y="588.43433"
+       ry="3.5188491"
+       rx="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-size:6.35px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Italic';text-decoration-color:#000000;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.625737;stop-color:#000000"
+       x="849.51929"
+       y="596.22668"
+       id="text803"><tspan
+         sodipodi:role="line"
+         id="tspan801"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:6.35px;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Medium';stroke-width:0.625736"
+         x="849.51929"
+         y="596.22668">Modifier</tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stop-color:#000000"
+       d="m 847.48168,593.90576 c -67.88896,-14.11915 -88.04065,25.72553 -59.12226,38.23694"
+       id="path1748"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.626;stroke-linejoin:bevel;stroke-dasharray:none;stop-color:#000000"
+       d="m 847.48169,593.90576 c -19.18293,5.32979 -6.58588,38.23694 -6.58588,38.23694"
+       id="path1750"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.625737;stop-color:#000000"
+       d="m 877.39489,593.90576 c 74.57088,-2.37173 75.0435,24.93669 60.25904,38.23694"
+       id="path1752"
+       sodipodi:nodetypes="cc" />
+    <g
+       id="g2177"
+       transform="translate(0,18.033332)"
+       inkscape:export-filename="sentence-modifier.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="fill:#ceaffc;fill-opacity:1;stroke:none;stroke-width:0.625998;stroke-linejoin:bevel;stop-color:#000000"
+         id="rect1659"
+         width="148.589"
+         height="20.785242"
+         x="876.03979"
+         y="771.56848" />
+      <rect
+         style="fill:#ceaffc;fill-opacity:1;stroke:none;stroke-width:0.625999;stroke-linejoin:bevel;stop-color:#000000"
+         id="rect1657"
+         width="148.589"
+         height="20.78524"
+         x="705.31995"
+         y="771.56848" />
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-weight:bold;font-size:9.87777px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Bold Italic';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.625999;stroke-linejoin:bevel;stop-color:#000000"
+         x="779.94043"
+         y="783.23944"
+         id="text820"><tspan
+           sodipodi:role="line"
+           id="tspan818"
+           x="779.94043"
+           y="783.23944"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile';fill:#000000;stroke:none;stroke-width:0.626">Mercifully, the play ended!</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:italic;font-weight:bold;font-size:9.87777px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Bold Italic';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#000000;stroke:none;stroke-width:0.625999;stroke-linejoin:bevel;stop-color:#000000"
+         x="950.87756"
+         y="784.52936"
+         id="text1603"><tspan
+           sodipodi:role="line"
+           id="tspan1601"
+           x="950.87756"
+           y="784.52936"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile';fill:#000000;stroke:none;stroke-width:0.626">the play ended mercifully!</tspan></text>
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+         d="m 711.81065,788.21909 h 45.40626"
+         id="path1817" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+         d="m 769.55921,788.21907 h 76.64724"
+         id="path1819" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart);stop-color:#000000"
+         d="m 734.51378,788.21909 c 18.86676,45.44071 70.04644,27.11562 73.07449,3.99414"
+         id="path1899"
+         sodipodi:nodetypes="cc" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+         x="779.49097"
+         y="763.65759"
+         id="text2113"><tspan
+           sodipodi:role="line"
+           id="tspan2111"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.326"
+           x="779.49097"
+           y="763.65759">sencetence level modifier</tspan></text>
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+         d="m 965.84984,788.21909 h 45.40626"
+         id="path2115" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+         d="m 931.62542,788.21909 h 26.3396"
+         id="path2117" />
+      <path
+         style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#TriangleStart);stop-color:#000000"
+         d="m 988.55297,788.21909 c -4.28342,21.2041 -40.17711,26.20708 -44.02828,4.16769"
+         id="path2121"
+         sodipodi:nodetypes="cc" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.87777px;line-height:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile';text-align:center;text-decoration-color:#000000;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.326;stroke-linecap:round;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+         x="950.35406"
+         y="763.65759"
+         id="text2127"><tspan
+           sodipodi:role="line"
+           id="tspan2125"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'Iosevka Aile';-inkscape-font-specification:'Iosevka Aile Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.326"
+           x="950.35406"
+           y="763.65759">verb phrase modifier</tspan></text>
+    </g>
   </g>
   <metadata
      id="metadata1278">
