@@ -361,6 +361,15 @@ above complex sentence, subordinated clauses are in \{\} and independent clauses
     \end{enumerate}
 \end{flushleft}
 
+there is no agreed upon idea of what a paragraph should contain. paragraph is what start on indented line and ends a line white space.
+aggregation of words into whitespace separeted bunches makes paragraphs a contained unit of language.
+readers expect some from of structure from each of our paragraphs. \emph{Focus} is the most expected from the paragraphs we write.
+each paragraph should talk about one idea only. \emph{Topic sentences} at the start of a paragraph orient our readers on what is to 
+follow in the paragraph so they know what expect and can follow easily. we can think of topic sentences as labels for a paragraph.
+human have a small working memory. make paragraph shorters and concise. a good \emph{flows}. By flow, we mean sentences in the paragraph
+chain together to create effortless reading experience.
+
+
 \section*{Deutsch}
 \subsection*{Phonology}
 Phonolgy is grammar of the sounds of a language, but phonetics is the study of human produced sound for its own sake.
@@ -728,64 +737,64 @@ or \lstinline{@DELETE}. Resource method are methods of resource class that are a
 Java world is full of specifications and implementations (some of which are reference). Language features such as interfaces, 
 annotations and abstract base classes aid writing specifications in java code.
 
-\begin{itemize}
-    \item Glassfish?
-    \item Jetty?
-    \item Servlet?
-          
-\end{itemize}
+%% a section that describes the working of traccar server.
+\subsection*{The server}
 
-\subsection*{The project}
-\begin{itemize}
-    \item Everything happens in \lstinline{Context.init}.
-    \item in context.init hikariCP and liquibase db-migration tool.
-    \item All database object access go through \lstinline{DataManager} class. Like login (User). like a homebrew ORM (object relational mapper).
-    \item \lstinline{ObjectMapper} from Jackson library maps java objects <=> JSON.
-    \item hikari manages connection pool database instances for example for PostGresql.
-    \item usind direnv program to manage firebase admin environment variables. firebase admin requires a service
-          key file which we pass to it using an environment variable containing the path.
-    \item liquibase loads schema file from \lstinline{changelog-master.xml}.
-\end{itemize}
+Traccar server is a 3 layer monolithic application where each layer handles a specific functionality\footnote{
+    If this is the topic sentence, then the rest of the paragraph should be about some sort of layering.
+}. The top layer in the application receives incoming request from mobile and application clients as well as both http and websocket
+connection. The middle layer of the application processes these requests and performs business logic before the third layer
+persists or reads objects to a database. 
+
+The top layer of Traccar is composed of a set of servlets. One of the servlets handles incoming REST API (Application Programming 
+Interface) calls from mobile and web clients. The other servlets handle websocket communication with tracking devices and serving
+media files for web clients. Since almost all of our modification is related to business logic and authorization related stuff,
+we will focus on the REST API servlet.
+
+The REST API servlet implements the Jakarta RESTful Web Services (JAX-RS) specification. JAX-RS specification provides its 
+users with annotations to decorate their classes. Traccar server uses Eclipse Jersey as the implentation library of JAX-RS. REST API 
+resources are bound to handler classes with annotations. Each handler class is annotated with REST API resource \emph{path}. Annotated 
+functions in the resource class handle specific HTTP methods. This layer of the application is commonly called the controller. Jersey 
+takes FasterXML's Jackson JSON serialization/deserializtion library in its filter chain to convert incoming JSON payloads to the 
+application objects. 
 
 
-%% a paragraph that describes the working of traccar server.
+Before each request is received by the resource handler classes, it passes through a class that implents JAX-RS' 
+\lstinline{ContainerRequestFilter} interface. This interface contains the \lstinline{filter} function. 
+The \lstinline{filter} function allows us to perform custom logic on all requests before they are matched with and dispatched to our 
+resource handler classes. Our implementation of the interface checks if each request contains a JSON Web Token 
+(JWT) payload in the \lstinline{Authorization} header, and If the header is present it tries to decode it and retrieve a valid Firebase
+user using Firebase Admin library functions.
 
-Traccar server is a layered monolithic application. each layer handles a specific functionality.
-Traccar server is composed of two servlets. one servlet handles api calls. the other servlet handles
-websocket communication. the api servlet implements the jax-rs specification. jax-rs specification provides Traccar server with
-annotations to decorate our classes with. Traccar server uses jersey as the implentation library of jax-rs. 
-rest api resources are bound to handler classes with annotations. each handler class is annotated with rest api 
-\emph{path}. annotated functions in the resource class handle specific http methods. 
-this layer of the application is commonly called the controller. jersey takes jackson json 
-serialization/deserializtion library in its filter chain to convert incoming json payloads to the application specifc 
-\emph{model} classes. before each request is received by the resource handler classes it passes through a class that implents 
-jax-rs' \lstinline{ContainerRequestFilter} class. \lstinline{ContainerRequestFilter} interface contains \lstinline{filter}
-function. The \lstinline{filter} function allows us to perform custom logic on all requests before they are matched with
-resource handler class. the class that implements \lstinline{ContainerRequestFilter} checks if each request conains a JSON Web 
-Tokens payload. If JSON Web Token is indeed in http body, decode the JSON Web Token using firebase admin authentication 
-functions. determine if decoded JSON Web Token contains data of an authenticated user. the class that implements 
-\lstinline{ContainerRequestFilter} class injects a \emph{security context} object to the resource handler classes. 
-the injected object contains authentication information necessary for the logic inside the resource handlers. 
-one such information is the users unique identifier id decoded from the JSON Web Token payload. \lstinline{Storage}  class is 
-also injected into the resource handlers. \lstinline{Storage} interfaces with the underlying database to write and
-read objects to and from a real database. connection to the database server is managed by \emph{HikariCP} connection pool 
-management library. we manage our connections with a HikariCP because we want to be resource efficient. we do this by not 
-recreating db connection on every request but by storing and reusing connection from older completed requests. doing 
-connection pooling we reduce object creation/destruction overhead. Traccar server uses \emph{Liquibase} database migration 
-tool to automatially initialize tables at startup. Liquibase reads table creation data from \emph{schema} files written in XML.
-Each schema file is written in the from of \emph{changesets}. changesets help us in the process of restoration of older 
-database state. Traccar server uses a custom Object relational mapping system. Each Traccar model class we want to persist
-is annotated with \lstinline{@StorageName}. \lstinline{@StorageName} helps the ORM to generate column names and table names 
-using Java's support for runtime reflection. By using annotations and reflection we can load a database table row to an 
-instance of a class that is annotated with \lstinline{@StorageName} or insert a model class that is annotated with 
-\lstinline{StorageName("")} to a database row. database update is possible usin this system. each of the API handlers use 
-instance of  \lstinline{Storage} class to read and write persistance data. \emph{data managers} sit between \lstinline{Storage}
-class and our resource handlers to facilitate the implementation of complex logic. this complex logic is usually a code that
-shares functoinaliy with the websocket code. Objects in Traccar server are linked with each other post creation. special 
-tables in database store this linkage information. \lstinline{Permission} model class helps when linking objects. together.\footnote{how?}
-\lstinline{PermissionService} class is injected to resource handler classes. \lstinline{PermisssionService} class handles
-various authorization related functions. Authorization related function include: check if user is admin, check if users can
-access reports, check if a give user can edit or update database objects, check if a given user owns certain model classes.
+Another function of our class implementing \lstinline{ContainerRequestFilter} is to inject objects that are usefull for processing
+incoming requests. It injects a \lstinline{SecurityContext} object for use by our resource handler classes. The injected object 
+contains authentication information necessary for the logic inside our resource handlers. One such information is the user's unique 
+identifier ID decoded from the JWT payload.
+
+\lstinline{Storage}  class is also injected into the resource handlers. \lstinline{Storage} interfaces with the underlying database 
+to write and read application objects in memory. Connection to the underlying database is managed by HikariCP connection pool 
+management library. We manage our connections with HikariCP because we want to be resource efficient. We become resource efficient by not 
+recreating database connection for every request but by storing and reusing connections from older completed requests. By doing 
+connection pooling, we reduce object creation/destruction overhead. 
+
+Traccar server uses Liquibase database migration tool to automatially initialize tables on startup. Liquibase reads table creation 
+data from \emph{schema} files written in XML. Each schema file is written in the from of \emph{changesets}. changesets help us in 
+the process of restoration of older database state. Traccar server uses a custom Object Relational Mapping (ORM) system. 
+Each Traccar model class we want to persist is annotated with \lstinline{@StorageName}. \lstinline{@StorageName} helps the ORM to 
+generate column names and table names using Java's support for runtime reflection. By using annotations and reflection, we can load 
+database table rows to application memory objects of a classes that are annotated with \lstinline{@StorageName} or insert objects that 
+are annotated with \lstinline{@StorageName("table_name")} to database rows. Each of the API handlers use instance of  
+\lstinline{Storage} class to read and write persistance data. 
+
+\emph{Data managers} sit between \lstinline{Storage} class and our resource handlers to facilitate the 
+implementation of a more complex logic. This more complex logic is usually a code that shares functoinaliy with the websocket code. 
+
+
+Objects in Traccar server are linked with each other post creation. Special tables in the database store this linkage information. 
+\lstinline{Permission} model class helps when linking objects together.\footnote{how?}. \lstinline{PermissionService} class is also injected 
+for use by resource handler classes. \lstinline{PermisssionService} class handles various authorization related functionalities. 
+Authorization related function include: check if user is admin, check if users can access reports, check if a give user can edit or 
+update database objects, check if a given user owns certain model classes, etc\ldots
 
 
 \begin{sidewaysfigure}[hbt!]
@@ -798,9 +807,9 @@ access reports, check if a give user can edit or update database objects, check 
 
 \lstset{style=custom-sql}
 
-Why did relational databases win out? Database is a \emph{set} of related information\footnote{Learning SQL}. databases can
-be indexed with some \emph{key}. a phonebook has letters on its margins. we can use the letters on the margins to find
-phonenumbers more quickly. we call this process \emph{indexing}. relational mode of data storage is the most commonly used.
+Why did relational databases win out? Database is a \emph{set} of related information\footnote{Learning SQL}. Databases can
+be indexed with some \emph{key}. A phonebook has letters on its margins. We can use the letters on the margins to find
+phonenumbers quicker. We call this process \emph{indexing}. relational mode of data storage is the most commonly used.
 heirarchial mode of data storage was more popular in the past. in heirarchial data storage scheme data is stored in a tree 
 fasion. as an example of heirarchial data storage we can consider the case of bank account storage.
 
@@ -865,6 +874,126 @@ select (name, corpid) from corporation where corpid=30;
 all database elements created with sql schema statements are stored in a set of special tables called \emph{the data dictionary}.
 this set of metadata tables can be queried just like other sql tables.
 
+several \emph{clauses} make up a query statement. only \lstinline{select} is mandatory for a query statement. \lstinline{select}
+clause runs last after filtering, grouping and ordering operations. instead of just \emph{selecting} rows from operation of other
+claues, for example \lstinline{from} clause's, \lstinline{select} clause can add synthetic rows to the result set. we can think of
+like the other clauses providing \lstinline{select} for columns to select from. \lstinline{as} introduces a column alias.
+\lstinline{from} clause defines the tables used by a query, along with the means of linking tables together. \lstinline{from} clauses 
+are very important for table join operations.
+
+\begin{lstlisting}
+-- select every column from language table for the result set.
+select * from language;
+
+-- select just language_id and name from language table for the result set.
+select language_id, name from language;
+
+-- select for 'synthetic' rows.
+select 
+    language_id as id, -- id is a column alias for language_id
+    'COMMON' as language_usage, -- 'synthetic' row
+    language_id * 3.1415927 as lang_pi_value, -- 'synthetic' row
+    upper(name) as language_name, -- 'synthetic' row
+    version() as version -- or even this!
+from 
+    language;
+\end{lstlisting}
+
+\flushleft\lstinline{from} clause can take various forms of tables:
+
+\begin{enumerate}
+    \item \emph{Permanent tables} created with \lstinline{create table}.
+    \item \emph{Derived tables} retured from a subquery and held in memory.
+    \item \emph{Temporary tables} that are volatile tables held in memory.
+    \item \emph{Virtual tables} created with \lstinline{create view} statement.
+\end{enumerate}
+
+\begin{lstlisting}
+select
+    concat(cust.last_name, ', ', cust.first_name) as full_name
+from -- from clause taking in a drived table.
+    (select
+        first_name,
+        last_name,
+        email
+    from
+        customer as c
+    where
+        c.first_name = 'JESSIE') as cust;
+\end{lstlisting}
+
+\begin{table}[hbt!]\sffamily
+    \begin{center}
+        \begin{tabularx}{0.75\textwidth}{l X}
+            \toprule
+            Clause name          & Purpose                                                                               \\
+            \midrule
+            \lstinline{select}   & Determines which query to include in the query's result set                           \\
+            \lstinline{from}     & Identifies the tables from which to retrieve data and how the tables should be joined \\
+            \lstinline{where}    & Filters out unwanted data                                                             \\
+            \lstinline{group by} & User to group rows together by common column values                                   \\
+            \lstinline{having}   & Filters out unwanted groups                                                           \\
+            \lstinline{order by} & Sorts the rows of the final result set by one or more columns                         \\
+            
+            \bottomrule
+        \end{tabularx}
+        
+        \caption{Query clauses}
+    \end{center}
+\end{table}
+
+\lstinline{from} clauses can also choose from 2 or more tables. by default from statement with out a join type will perfrom cross 
+product for each row of all the columns of table A with all columns of table B. table joins can be chained together for more than
+two tables.
+
+\begin{lstlisting}
+select
+    concat(cu.first_name, ' ', cu.last_name) as name, ct.city
+from
+    customer as cu 
+    inner join address as ad 
+        on cu.address_id = ad.address_id 
+    inner join city as ct 
+        on ad.city_id = ct.city_id;
+\end{lstlisting}
+
+one unique cutomer (by definition) can have multiple rental records. this, we call one-to-many relationship.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{graphics/one-to-many-relationship.jpg}
+    \caption{One to many relationship in tables}
+\end{figure}
+
+\lstinline{group by} collects collects rows by equality of rows we provide. \lstinline{count(column)} stores how many there are in a 
+group.
+
+\begin{lstlisting}
+select
+    f.film_id, f.title, count(*) num_copies
+from
+    film as f 
+        inner join inventory as i 
+        on f.film_id = i.film_id
+group by
+    f.film_id, f.title;
+\end{lstlisting}
+
+\lstinline{inner join} truncates rows that are not in both tables based on the condition we provided. to include rows of one table
+no matter what, we employ \lstinline{outer join}.
+
+\begin{lstlisting}
+select
+    -- note: count(i.inventory_id)
+    f.film_id, f.title, count(i.inventory_id) num_copies
+from
+    film as f
+    left outer join inventory as i 
+    on f.film_id = i.film_id
+group by f.film_id, f.title
+order by f.film_id;
+\end{lstlisting}
+
 \subsection*{PostgreSQL}
 \lstset{style=custom-bash}
 PostgreSQL is one of the most popular sql based database management systems. PostgreSQL is fully opensource. PostgreSQL is developed 
@@ -900,6 +1029,8 @@ perfromed by \emph{unix} user \lstinline{postgres}. postgresql comes with one de
 role is a super user role. super user roles can read and write to every database. super user roles can create and drop roles.
 linux user \lstinline{postgres} and postgresql superuser role having the same name make things a little confusing. postgresql roles can
 be create from the terminal using \lstinline{createuser} or from the interactive sql shell psql using sql statement:
+
+we can connect to to database using superuser role \lstinline{postgres} from anywhere!
 
 \lstset{style=custom-sql}
 \begin{lstlisting}
