@@ -1,9 +1,11 @@
 \documentclass[a4paper]{article}
 
+
 \usepackage{fontspec}
 
 % for code listing.
 \usepackage{listings}
+\usepackage{minted}
 \usepackage{xcolor}
 
 % url typesetting
@@ -89,7 +91,17 @@
     stringstyle=\color{orange}
 }
 
-
+\lstdefinestyle{custom-html}{
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true,
+    frame=L,
+    language=HTML,
+    xleftmargin=\parindent,
+    keywordstyle=\bfseries\color{darkgreen},
+    commentstyle=\itshape\color{purple},
+    identifierstyle=\color{blue},
+    stringstyle=\color{orange}
+}
 
 \begin{document}
 
@@ -441,7 +453,35 @@ means \emph{i want}.
 plural \emph{ihr} (you (all)). \emph{jeden}\footnote{except that jeden (rather than jedes) is usual in the genitive
     singular masculine and neuter if the following noun has the ending -(e)s, e.g.
     \emph{am Ende jed \textbf{en}} (less frequent: \emph{jed \textbf{es}}) \emph{Abschnitts.}} is a determiner that corresponds to
-english \emph{each}, \emph{every}. \emph{kontrollieren}
+english \emph{each}, \emph{every}. \emph{vertauen} is a weak regular verb that translates to English as \emph{to trust}.
+Since it is a weak regular verb it's conjugations is simple.
+
+\begin{table}
+    \centering\sffamily
+    \begin{tabular}{l l r}
+        \toprule
+                                    &                           & \emph{vertrauen}    \\
+        \midrule
+        \multirow{6}{*}{Prasens}    & \multirow{3}{*}{Singular} & ich vertraue        \\
+                                    &                           & du vertraust        \\
+                                    &                           & er/es/sie vetraut   \\
+        \cmidrule{2-3}
+                                    & \multirow{3}{*}{Plural}   & wir vetrauen        \\
+                                    &                           & ihr vetraut         \\
+                                    &                           & sie vetrauen        \\
+        \midrule
+        \multirow{6}{*}{Prateritum} & \multirow{3}{*}{Singular} & ich vertraute       \\
+                                    &                           & du vetrautest       \\
+                                    &                           & er/es/sie vertraute \\
+        \cmidrule{2-3}
+        
+                                    & \multirow{3}{*}{Plural}   & wir vertrauten      \\
+                                    &                           & ihr vertrautet      \\
+                                    &                           & sie vertrauten      \\
+        \bottomrule
+    \end{tabular}
+    \caption{Conjugations of \emph{vertrauen}}
+\end{table}
 
 \begin{table}
     \centering
@@ -784,7 +824,13 @@ Each Traccar model class we want to persist is annotated with \lstinline{@Storag
 generate column names and table names using Java's support for runtime reflection. By using annotations and reflection, we can load 
 database table rows to application memory objects of a classes that are annotated with \lstinline{@StorageName} or insert objects that 
 are annotated with \lstinline{@StorageName("table_name")} to database rows. Each of the API handlers use instance of  
-\lstinline{Storage} class to read and write persistance data. 
+\lstinline{Storage} class to read and write persistance data. Traccar's in house ORM replaces right hand side of a \lstinline{where} 
+clause with a variable.
+
+\begin{minted}[linenos=true,breaklines]{sql}
+-- notice the :id? it is a variable not a concrete value. May be it is a JDBC thing?
+select * from ipk_user as u where id = :id;
+\end{minted}
 
 \emph{Data managers} sit between \lstinline{Storage} class and our resource handlers to facilitate the 
 implementation of a more complex logic. This more complex logic is usually a code that shares functoinaliy with the websocket code. 
@@ -796,12 +842,445 @@ for use by resource handler classes. \lstinline{PermisssionService} class handle
 Authorization related function include: check if user is admin, check if users can access reports, check if a give user can edit or 
 update database objects, check if a given user owns certain model classes, etc\ldots
 
+\subsubsection*{Traccar's access control method}
+
+Traccar server users belong to different \emph{user roles} which gives them a different set of capabilities in managing other users and 
+objects.
+
+
+    {\raggedright Main user roles:}
+
+\begin{itemize}
+    \item \emph{Admin} is a superuser that has full unlimited access to the whole Traccar server.
+    \item \emph{Manager} is a user with extended capabilities allowing him to manage his subset of users and register new ones.
+    \item \emph{User} is an ordinary user that can manipulate any of his own objects and add new ones.
+\end{itemize}
+
+{\raggedright Limited user roles:}
+
+\begin{itemize}
+    \item \emph{Readonly user} is a user that cannot add/edit/remove anything in the system. He can only monitor his objects.
+          Can be used for public/embedded access to Traccar.
+    \item \emph{Device readonly user} is an ordinary user with a restriction on device manipulation. Other objects can be edited
+          without limits. 
+\end{itemize}
+
+{\raggedright User limits:}
+
+\begin{itemize}
+    \item \emph{Device limit} the limit for number of devices that user can have. User cannot add devices more than his device limit.
+          \begin{itemize}
+              \item If device limit is set to \textbf{-1}, it means that the user has no limit on the number of devices.
+              \item If device limit is set to \textbf{0}, it means cannot add any devices, but he can edit or remove existing ones.
+          \end{itemize}
+    \item \emph{User limit} the limit on number of users that manager can have. Manager cannot add users more than his user limit.
+          \begin{itemize}
+              \item If user limit is set to \textbf{-1}, it means that manager has no limit.
+              \item If user limit is set to \textbf{0}, it means that user is not a manager. The difference between manager and
+                    regular user is in their user limit value. Manager has limit not equals to 0.
+          \end{itemize}
+    \item Only adminstrators can change the above two \emph{limit} values. Users created by a manager will always have 0 value for both
+          limits. Newly registered users will have \emph{device limit} set to -1 or value from server config 
+          \lstinline{users.defaultDeviceLimit}.
+    \item \emph{Expiration time} is the time after which user cannot log into the system.
+    \item \emph{Disabled} users cannot log in.
+    \item \emph{User} or \emph{manager} cannot edit the above two values in their own accounts.
+    \item \emph{Manager} can edit these fields for the users he has access to, with one restriction. If \emph{manager} has expiration
+          time, he cannot set other users expiration time later than his own.
+    \item Also, one important restriction is that only \emph{administrator} can unlink devices from himself.
+\end{itemize}
+
+
 
 \begin{sidewaysfigure}[hbt!]
     \centering
     \includegraphics[width=\textheight]{graphics/uml-chart.png}
     \caption{Traccar UML chart}
 \end{sidewaysfigure}
+
+\lstset{style=custom-java}
+As we have seen above, after the server decodes session login information and extracts the logged in user's ID, it loads the user 
+data stored in the database by finding the matching database row with same \lstinline{user_id}. The \lstinline{Server} object stored
+in the database also has specila values for \emph{limits}.
+
+\lstinline{PermissionService} class performs this operation and it also has convenience function for access control management: 
+\lstinline{getUser(long userId, ...)}, \lstinline{checkEdit(long userId, ...)}, \lstinline{checkAdmin(long userId, ...)} \ldots
+
+\begin{minted}{sql}
+select * 
+from tc_users as u 
+where u.user_id = user_id_from_session_cookie; 
+\end{minted}
+
+\lstset{style=custom-java}
+The returned user has \emph{access control} properties that are used by the server to determine which resources the user has access
+to. To illustrate how initial access control works, let us examine how the request \lstinline{POST /api/drivers} with payload 
+\lstinline{"name": "Steve McQueen"} would work for a \emph{readonly user}. A readonly user is an ordinary user with it 
+\lstinline{Boolean readonly} set to \lstinline{true}. After the \lstinline{userId} in the cookie payload is decoded, the following
+code listing is run. As we can see from line 50, \lstinline{getUser(userId).getReadOnly()} sets \lstinline{denied} to
+\lstinline{true} which then is the condition for \lstinline{throw SecurityException}.
+
+\begin{minted}[breaklines,fontsize=\footnotesize,linenos=true]{java}
+// Drivers.class, inherited from BaseObjectResource.java
+@POST
+public Response add(T entity) throws StorageException {
+    permissionsService.checkEdit(getUserId(), entity, true);
+
+    BaseObjectManager<T> manager = Context.getManager(baseClass);
+    manager.addItem(entity);
+    LogAction.create(getUserId(), entity);
+
+    storage.addPermission(new Permission(User.class, getUserId(), baseClass, entity.getId()));
+    LogAction.link(getUserId(), User.class, getUserId(), baseClass, entity.getId());
+
+    if (manager instanceof SimpleObjectManager) {
+        ((SimpleObjectManager<T>) manager).refreshUserItems();
+    } else if (baseClass.equals(Group.class) || baseClass.equals(Device.class)) {
+        Context.getPermissionsManager().refreshDeviceAndGroupPermissions();
+        Context.getPermissionsManager().refreshAllExtendedPermissions();
+    }
+    return Response.ok(entity).build();
+}
+
+// PermissionService.java
+
+public void checkEdit(long userId, Object object, boolean addition) throws StorageException, SecurityException {
+    if (!getUser(userId).getAdministrator()) {
+        checkEdit(userId, object.getClass(), addition);
+        boolean denied = false;
+        // Only Device and Group classes extend GroupModel.
+        if (object instanceof GroupedModel) {
+            long groupId = ((GroupedModel) object).getGroupId();
+            if (groupId > 0) {
+                checkPermission(Group.class, userId, groupId);
+            }
+        }
+        if (object instanceof ScheduledModel) {
+            long calendarId = ((ScheduledModel) object).getCalendarId();
+            if (calendarId > 0) {
+                denied = storage.getPermissions(User.class, userId, Calendar.class, calendarId).isEmpty();
+            }
+        }
+        if (denied) {
+            throw new SecurityException("Write access denied");
+        }
+    }
+}
+
+public void checkEdit(long userId, Class<?> clazz, boolean addition) throws StorageException, SecurityException {
+    if (!getUser(userId).getAdministrator()) {
+        boolean denied = false;
+        if (getServer().getReadonly() || getUser(userId).getReadonly()) {
+            denied = true;
+        } else if (clazz.equals(Device.class)) {
+            denied = getServer().getDeviceReadonly() || getUser(userId).getDeviceReadonly();
+            if (addition) {
+                int deviceCount = storage.getPermissions(User.class, userId, Device.class).size();
+                denied = deviceCount >= getUser(userId).getDeviceLimit();
+            }
+        } else if (clazz.equals(Command.class)) {
+            denied = getServer().getLimitCommands() || getUser(userId).getLimitCommands();
+        }
+        if (denied) {
+            throw new SecurityException("Write access denied");
+        }
+    }
+}
+
+
+\end{minted}
+
+From the code listing above in particular line 50, we can see that there exists a layer between the database interfacing 
+\lstinline{Storage} object and the controller code. \lstinline{BaseObjectManager} sits between the affomentioned layers acting 
+sort of like a caching. This means incoming payload data is not directly written to the database in the resource handler but 
+it is first written to the ``caching'' object and then, finally, committed to the database. \lstinline{PermissionManager} (not
+to be confused with \lstinline{PermissionService} we saw above) handles Object linkage access control. Users is traccar server
+manage other objects depending on the capabilities and limits. For example, an \emph{ordinary user} can access a set \emph{devices}
+based on its permission. Traccar follows a sort of Access Control Lists (ACL) method to manage access control permissions. A simple 
+ACL example is give below\ref*{tab:acl_example}. Every time we create these object which need permission to be accessed we add a new
+entry to the object's ACL with the user with whose context the object is created with. As we can see from the table below to for 
+example\ref*{tab:acl_sql_table}, \lstinline{user_id = 0} can access two device with \lstinline{device_id = 0, 1}. The code snippet
+below adds to the SQL table (represented here as \lstinline{Permission}) \lstinline{tc_users_drivers} a single row similar to 
+the rows in table \ref*{tab:acl_sql_table}. \lstinline{Permission} objects (ACL tables) are bound on the fly, so there is no class
+in Traccar like \lstinline{IpkUserTcUser}. Traccar server literally scans \lstinline{BaseModel} class for sub-classes:
+
+\begin{minted}[linenos=true,breaklines]{java}
+public class Permission {
+
+    private static final Map<String, Class<?>> CLASSES = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
+    static {
+        try {
+            for (Class<?> clazz : ClassScanner.findSubclasses(BaseModel.class)) {
+                CLASSES.put(clazz.getSimpleName(), clazz);
+            }
+        } catch (IOException | ReflectiveOperationException | URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    // ... rest of the class.
+}
+\end{minted}
+
+
+\begin{minted}[breaklines,linenos=true,fontsize=\footnotesize]{java}
+storage.addPermission(new Permission(User.class, getUserId(), baseClass, entity.getId()));
+\end{minted}
+
+
+
+\begin{table}[hbt!]
+    \centering
+    \sffamily
+    \footnotesize
+    \begin{tabularx}{0.7\textwidth}{l X}
+        \toprule
+        Device & Access Control List                                         \\
+        \midrule
+        0      & User 0 = read + write, User 1 = read, User 2 = read         \\
+        1      & User 0 = read, User 1 = read + write, User 2 = read + write \\
+        \bottomrule
+    \end{tabularx}
+    \normalfont
+    \caption{A sample ACL}
+    \label{tab:acl_example}
+\end{table}
+
+\begin{table}[hbt!]
+    \centering
+    \ttfamily
+    \footnotesize
+    \begin{tabular}{| l | l |}
+        \hline
+        device\_id & user\_id \\
+        \hline
+        0          & 0        \\
+        \hline
+        1          & 0        \\
+        \hline
+        2          & 1        \\
+        \hline
+    \end{tabular}
+    \normalfont
+    \caption{A sample ACL}
+    \label{tab:acl_sql_table}
+\end{table}
+
+\subsubsection*{Our modification to Traccar}
+
+{\raggedright Our modification should:}
+
+Traccar has a different set of definition for time.
+
+Some devices send two timestamps:
+
+\begin{enumerate}
+    \item Time of the GPS fix (fixTime)
+    \item Time when the message was formed (deviceTime)
+\end{enumerate}
+
+{\raggedright Traccar fronted notes}
+
+\begin{itemize}
+    \item EditItemView generic UI.
+    \item ReportFilter generic UI.
+    \item Attributes are extra data that are not specified in the database schema but stored as a blob?
+\end{itemize}
+
+Also, if message from device doesn't contain location data, but have some other valuable information (for example, sensor data), 
+Traccar decodes that data and uses latest known GPS location. That's how you can get different values for \lstinline{fixTime} and 
+\lstinline{deviceTime} columns. For queries it's better to use fixTime as there is an index for it.
+
+
+
+\begin{itemize}
+    \item Reuse as much code as possible.
+          \begin{itemize}
+              \item One interesting idea is to simply add firebase user, traccar user mappings.
+              \item Insert and admin user from firebase auth dashboard.
+          \end{itemize}
+\end{itemize}
+
+
+\subsection*{Web security with CORS}
+\subsubsection*{Same Origin Policy (SOP)}
+
+Every resource (images, binary data, JSON from API calls, CSS, sounds, \ldots) loaded by a web browser is assigned an origin tag that 
+is made up of its scheme, domain, and port.
+\[
+    O = s + d + p  
+\]
+where \(O\) is origin, \(s\) is scheme (\lstinline{http} or \lstinline{https}), \(d\) is the whole domain which includes all subdomain
+fragments and \(p\) is the port. Two or more origins are said to be from the \emph{same origin} if the scheme, domain and port 
+of each origin is the same. Same origin can be thought of as function that takes multiple origins and returs a boolean.
+
+\[
+    SO = f(O_1, O_2, \ldots, O_n) \rightarrow Boolean
+\]
+
+\lstset{style=custom-html}
+
+What is important to note is that, the web browser loads content from each origin in its own sandboxed context, and each sandboxed
+context has no means of accessing a context from another origin. For example in the code snippet shown below, javascipt code from 
+\lstinline{site-one.com} cannot access data contained \lstinline{<img />} tag because it has different origin from the 
+\lstinline{<img />} tag which is from \lstinline{site-two.com}. We can also see that loading webpages into two or more different
+browser tabs/windows is not the the only of creating different sandboxed contexts.
+
+We should note that however, code loaded in one context can access the data of another context if it has \emph{handle} to the second
+context. One way to obtain that handle is to create the context we want to access with \lstinline{window.open} function.
+
+\begin{lstlisting}
+// this javascript is run from the context of site-one.com
+// now handle can read and write the data (js + dom) of context two.
+let handle = window.open("https://site-two.com", "right");
+\end{lstlisting}
+
+
+\begin{lstlisting}
+<!-- webpage loaded from https://site-one.com -->
+
+<!-- note that we can not read data from the style sheet but stylesheet 
+     applies to the page. -->
+<link rel="stylesheet" href="https://bootstrap.com/style.css" />
+<div>
+    <img src="https://site-two.com/fancy-cat.jpg" />
+    <!-- rest of site-one.com -->
+</div>
+\end{lstlisting}
+
+
+Although static resources in one origin's context cannot be read from another origin's context, javascript loaded from another
+origin can actually read and modify the data of the loading context even though they dont have the same origin because it is loaded
+into the same context as that of loading origin's. This flaw that still exists because of legacy compatiblity reasons combined with 
+the fact that any javascript that is from the same origin can access cookie jars that are by definition global to the origin is 
+reason for Cross Origin Request Forgery (CSRF) exploits\ref{fig:csfr}.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{graphics/same-origin-csrf.png}
+    \caption{SOP and Javascript}
+    \label{fig:csfr}
+\end{figure}
+
+\subsubsection*{SOP and Cookies}
+
+\begin{itemize}
+    \item cookies used to persistent session data, like logged in user info of a shopping site.
+    \item logged in users can order items from the shopping site.
+    \item cookie jar as global map of \dots
+\end{itemize}
+
+Browser cookies are browser global objects that store site related data. The server sets a cookie \emph{value} using the 
+\lstinline{Set-Cookie: cookieName=cookieValue} HTTP response header. The browser then set the cookie for that specific domain
+in the cookie jar. Next time the web browser sends request to the server it attaches the cookie in the HTTP header like 
+\lstinline{Cookie: cookieName=cookieValue}. Cookie jars are different from origin specific origins in that cookies are global and
+not session based. Every time a user makes a request to a server the hostname is matched against cookie domain value stored in 
+in the cookies jar and if it is found the cookie values are attached to request and sendt to the server. Since cookies are not
+session specific they are used to persist HTTP request which are stateless by their nature. For example, without the use of 
+cookies the browser needs to send authentication (for example username, password combo) on every request. but with cookies we can
+mark a user as authenticated by setting the cookie with value like loggedIn=true, userId=0001 and on the subsequest request the 
+user will send this info with the request. the server then can know the user is logged in.
+
+Since values in the cookie are not attached to the first origin that requested them and can be attached to any request whose
+destination the same as the cookies domain value, it is very easy to impersonate a user with an elevated privilege. For example,
+consider this scenario: A user is authenticated on a shopping website and this fact is stored in the cookie store. what if an
+attacking website persuades the user to make this request from hostile website?
+
+\begin{lstlisting}
+<form method="POST" action="http://shoppingsite.com/make-order">
+<!--
+    cart = ["PS5", "Scooter", "TV set"],
+    destination = "attackers address"
+-->
+</form>
+\end{lstlisting}
+
+the from request url is matched against a domain key in the cookie jar and the request is sent with the cookie values loaded.
+but remember the the request is from a non authenticated context.
+
+\subsubsection*{Cross-Origin Request Sharing (CORS)}
+
+As we have seen above, the browsers strict SOP enforcement means we can not, for example, read data from api calls of different 
+origin because the data is loaded into a separate context. This limitations seriously constrains the usefullness of web platform
+since so much of useful functionality is provided by third party API servers. CORS allows weakening of SOP so that data can be loaded
+from different origin. Request from the context of site-one.com makes \lstinline{XMLHttpRequest} to site-two.com, but since the data 
+coming of site-two.com is coming from different origin site-one.com cannot read it. CORS works as follows:
+
+\begin{enumerate}
+    \item code from \lstinline{site-a.com}'s context makes an \lstinline{OPTION} (no paylaod) request to \lstinline{site-b.com} with
+          the HTTP header \lstinline{Origin} specifing the origin (scheme, domain, and port) of the request.
+    \item The server sees this and responds with header only response with response including \lstinline{Access-Control-Allow-Origin: * | origin}
+    \item When the browsers sees a response with appropriate \lstinline{Access-Control-Allow-Origin} it allows the loading of
+          resource into \lstinline{site-a}'s context.
+\end{enumerate}
+
+By default, CORS request are anonymous, i.e., a cookie data is not attached with the request. Of course, we can bypass this.
+A CORS request javascript side is made as follows:
+
+\begin{lstlisting}
+// in the options object, "mode" must be set to "cors" to make CORS requests.
+// by setting "credentials" to "include" we instruct the browser to send cookie data
+// with the request.
+let resp = await fetch("https://site-b.com", {
+    mode: "cors",
+    credentials: "include",
+});
+
+let data = await resp.json();
+
+// If the CORS request is successfull, data can be read from.
+
+/*
+    Request timeline
+
+    -> Origin: https://site-a.com
+
+    ---
+
+    <- Access-Control-Allow-Origin: * | https://site-a.com
+    <- Access-Control-Allow-Credentials: true
+*/
+
+\end{lstlisting}
+
+% - cors is a sop weakening mechanism.
+% - why is preflight request sent (with option).
+% - x-requested-with (causes a preflight request, that must be handled by the server) as a csrf protection.
+
+
+The ability of web clients to load a 3rd party and potentially adverserial javascript code which can make AJAX calls to our
+server with an authenticated user context presents us with a potential security vurnability. To mitigate this, we can instruct
+the web browser to attatch the \emph{origin} of each AJAX call.
+
+Origin of a web request tells us from which javascript code each request originates from. Origin is scheme, domain, port.
+Normally, the web browser creates separate context for each web page window. each window cannot snoop on each others data.
+but can a 3rd party javascript access loaded from a webpage access its internal data? and if it does what is the security
+implication. we can actually see the contents of another window if have handle (js reference) to that window. sandbox.
+same origin as a function that takes origins and returns boolean. different classes of resources: js, css, img, cookies etc...
+cookies are global not session based... which leads to CSRF. Secure; HTTP-ONLY;...
+CORS allows a site to 'opt-in' to weakening SOP and allow other sites to read data.
+
+\begin{table}
+    \centering
+    \footnotesize
+    \sffamily
+    \begin{tabularx}{\textwidth}{l l X}
+        \toprule
+        URL A                          & URL B                           & Same origin?          \\
+        \midrule
+        \url{http://goodsite.com/a}    & \url{http://goodsite.com/b}     & Yes                   \\
+        \url{http://goodsite.com}      & \url{https://goodsite.com}      & No (different scheme) \\
+        \url{http://goodsite.com/}     & \url{http://www.goodsite.com}   & No (different domain) \\
+        \url{http://goodsite.com}      & \url{http://goodsite.com:8080}  & No (different port)   \\
+        \url{http://goodsite.com/user} & \url{http://goodsite.com/admin} & Yes                   \\
+        \bottomrule
+    \end{tabularx}
+    \normalsize
+    \normalfont
+    \caption{Web origin examples}
+\end{table}
+
 
 \section*{SQL notes}
 
